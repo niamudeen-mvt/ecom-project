@@ -5,16 +5,16 @@ export const _routes = [
   },
   {
     name: "Deals",
-    path: "/",
+    path: "#deals",
   },
   {
     name: "New Arrivals",
-    path: "/",
+    path: "#newArrivals",
   },
-  {
-    name: "Packages",
-    path: "/",
-  },
+  // {
+  //   name: "Packages",
+  //   path: "/",
+  // },
   {
     name: "Sign in",
     path: "/",

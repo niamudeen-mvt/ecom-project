@@ -6,7 +6,6 @@ import ThirdSlideImgae from "../assets/images/logo (3).png";
 import FourthSlideImgae from "../assets/images/logo(4).png";
 import FifthSlideImgae from "../assets/images/logo (5).png";
 import { Autoplay } from "swiper/modules";
-import "swiper/css";
 
 const _slidesMenu = [
   {
@@ -52,9 +51,10 @@ export default function LogoSlider() {
             slidesPerView: 2,
           },
         }}
+        loop={true}
         modules={[Autoplay]}
         autoplay={{
-          delay: 1000,
+          delay: 20,
           disableOnInteraction: false,
         }}
       >

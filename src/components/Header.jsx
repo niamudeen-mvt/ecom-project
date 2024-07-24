@@ -1,10 +1,10 @@
 import { _routes } from "../constants";
-import BrandImage from "../assets/images/FASCO.png";
 import { IoCloseOutline } from "react-icons/io5";
 import { HiBars3BottomRight } from "react-icons/hi2";
 import { useEffect, useState } from "react";
 import useWindowSize from "../hooks/useWindowSize";
 import { Link } from "react-router-dom";
+import BrandImage from "../assets/images/FASCO.png";
 
 export default function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -48,7 +48,8 @@ export default function Header() {
                   : "hover:bg-gray-100 py-2 px-4 rounded-md transition-all duration-300 ease-in-out"
               }`}
             >
-              <Link to={route.path}>{route.name}</Link>
+              {/* <Link to={route.path}>{route.name}</Link> */}
+              <a href={route.path}>{route.name}</a>
             </li>
           ))}
         </ul>
