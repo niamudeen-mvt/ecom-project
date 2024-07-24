@@ -1,5 +1,5 @@
 import { FaStar } from "react-icons/fa6";
-export default function Reviews({ count = 5 }) {
+export default function Rating({ count = 5 }) {
   return (
     <div className="flex">
       {Array.from({ length: count }).map((_, index) => (

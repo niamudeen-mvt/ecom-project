@@ -1,8 +1,8 @@
+import Rating from "../shared/Rating";
 import Skeleton from "../shared/Skeleton";
-import Reviews from "./Reviews";
 import { FaImage } from "react-icons/fa6";
 
-export default function Card({ product, isLoading }) {
+export default function ProductCard({ product, isLoading }) {
   return (
     <div
       key={product.id}
@@ -38,7 +38,7 @@ export default function Card({ product, isLoading }) {
             <div className="flexSbs">
               <h3 className="text-2xl">${product.price}</h3>
               <span className="text-red-500">
-                <Reviews count={product.rating.rate} />
+                <Rating count={product.rating.rate} />
               </span>
             </div>
             <div className="flex justify-center">

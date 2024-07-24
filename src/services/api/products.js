@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const fetchProducts = (url) => {
+export const fetchProducts = async (url) => {
   try {
-    const resp = axios.get(url);
-    return resp;
+    const response = await axios.get(url);
+    return response;
   } catch (error) {
     console.log("error: ", error);
     return error;

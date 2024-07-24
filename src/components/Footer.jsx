@@ -18,7 +18,7 @@ const _footerMenu = [
 
 export default function Footer() {
   return (
-    <footer className="customContainer py-10 space-y-10">
+    <footer className="customContainer py-10 space-y-10 mt-10">
       <section className="flex flex-col sm:flex-row sm:justify-between  gap-8">
         <Link to={"/"}>
           <img src={BrandImage} alt="Brand Logo" className="w-40 h-9" />

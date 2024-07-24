@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { fetchProducts } from "../../services/api/products";
 import { useQuery } from "@tanstack/react-query";
-import Card from "./Card";
 import Category from "./Category";
+import ProductCard from "./Card";
+import SectionText from "../shared/SectionText";
 
 export default function ProductSection() {
   const [products, setProducts] = useState([]);
@@ -33,16 +34,15 @@ export default function ProductSection() {
   });
 
   return (
-    <section className="section customContainer space-y-10" id="newArrivals ">
+    <section className="section customContainer space-y-10" id="newArrivals">
       {/* top section */}
 
-      <div className="space-y-10 flexCenter flex-col">
-        <h2>new arrivals</h2>
-        <p className="text-center">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque
-          duis ultrices sollicitudin aliquam sem. Scelerisque duis ultrices
-          sollicitudin
-        </p>
+      <div className="flexCenter">
+        <SectionText
+          title="New Arrivals"
+          desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque duis ultrices sollicitudin aliquam sem."
+          textDirection="CENTER"
+        />
       </div>
 
       {/* category section */}
@@ -55,7 +55,7 @@ export default function ProductSection() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-24  py-14">
         {products.map((product) => (
-          <Card
+          <ProductCard
             key={product.id}
             product={product}
             isLoading={fetchingProducts}

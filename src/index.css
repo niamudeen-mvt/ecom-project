@@ -70,6 +70,8 @@ h1 {
     @apply flex justify-between items-center;
   }
 }
+
+/* deals swiper */
 .deals-swiper .swiper-pagination {
   position: relative !important;
   margin-top: 3.5rem;

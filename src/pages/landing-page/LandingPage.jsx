@@ -5,6 +5,7 @@ import ProductSection from "../../components/products/Products";
 import LogoSlider from "../../components/Slider";
 import StaticButtons from "../../components/StaticButton";
 import HeroSection from "./HeroSection";
+import TestimonialSection from "./TestimonialSection";
 
 export default function LandingPage() {
   return (
@@ -17,6 +18,7 @@ export default function LandingPage() {
       </div>
       <DealsSection />
       <ProductSection />
+      <TestimonialSection />
       <Footer />
     </>
   );

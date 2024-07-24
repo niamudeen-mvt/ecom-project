@@ -24,10 +24,8 @@ export default function HeroSection() {
           <div className="w-full !uppercase text-center grid gap-4">
             <p className="text-4xl text-gray-300">let's shopping</p>
             <h2 className="!text-8xl !uppercase">Fashion</h2>
-            <p className="tracking-widest">new collection</p>
-            <div>
-              <button className="btn uppercase">Shop Now</button>
-            </div>
+            <p className="tracking-widest !max-w-full">new collection</p>
+            <button className="btn uppercase !w-max mx-auto">Shop Now</button>
           </div>
           <div>
             <img
