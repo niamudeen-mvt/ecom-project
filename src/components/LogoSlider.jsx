@@ -35,8 +35,6 @@ export default function LogoSlider() {
     <section className="py-28">
       <Swiper
         slidesPerView={1}
-        // onSlideChange={() => console.log("slide change")}
-        // onSwiper={(swiper) => console.log(swiper)}
         breakpoints={{
           1280: {
             slidesPerView: 5,
@@ -54,7 +52,7 @@ export default function LogoSlider() {
         loop={true}
         modules={[Autoplay]}
         autoplay={{
-          delay: 20,
+          delay: 1000,
           disableOnInteraction: false,
         }}
       >

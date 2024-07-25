@@ -1,11 +1,11 @@
 import img_1 from "../../assets/images/products/img_1.png";
 import img_2 from "../../assets/images/products/img_2.png";
 import img_3 from "../../assets/images/products/img_3.png";
-import NavigationButton from "../../components/shared/slider/NavigationButton";
-import CustomSlider from "../../components/shared/slider/CustomSlider";
+import NavigationButton from "../shared/slider/NavigationButton";
+import CustomSlider from "../shared/slider/CustomSlider";
 import { SwiperSlide } from "swiper/react";
-import TestmonialCard from "../../components/testimonials/Card";
-import SectionText from "../../components/shared/SectionText";
+import TestmonialCard from "./Card";
+import SectionText from "../shared/SectionText";
 
 const _slides = [
   {

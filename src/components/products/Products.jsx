@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { fetchProducts } from "../../services/api/products";
 import { useQuery } from "@tanstack/react-query";
+import { fetchProducts } from "../../services/api/products";
 import Category from "./Category";
 import ProductCard from "./Card";
 import SectionText from "../shared/SectionText";
+import UnavailableContent from "../shared/UnavailableContent";
 
 export default function ProductSection() {
   const [products, setProducts] = useState([]);
@@ -34,34 +35,41 @@ export default function ProductSection() {
   });
 
   return (
-    <section className="section customContainer space-y-10" id="newArrivals">
-      {/* top section */}
+    <>
+      <section className="section customContainer space-y-10" id="newArrivals">
+        {/* top section */}
 
-      <div className="flexCenter">
-        <SectionText
-          title="New Arrivals"
-          desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque duis ultrices sollicitudin aliquam sem."
-          textDirection="CENTER"
-        />
-      </div>
-
-      {/* category section */}
-
-      <Category
-        categories={categories}
-        activeCategory={activeCategory}
-        setActiveCategory={setActiveCategory}
-      />
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-24  py-14">
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            isLoading={fetchingProducts}
+        <div className="flexCenter">
+          <SectionText
+            title="New Arrivals"
+            desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque duis ultrices sollicitudin aliquam sem."
+            textDirection="CENTER"
           />
-        ))}
-      </div>
-    </section>
+        </div>
+
+        {/* category section */}
+
+        <Category
+          categories={categories}
+          activeCategory={activeCategory}
+          setActiveCategory={setActiveCategory}
+        />
+
+        {/* products section */}
+        {products && products?.length ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-24  py-14">
+            {products.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                isLoading={fetchingProducts}
+              />
+            ))}
+          </div>
+        ) : (
+          <UnavailableContent content="Products are currently unavailable" />
+        )}
+      </section>
+    </>
   );
 }

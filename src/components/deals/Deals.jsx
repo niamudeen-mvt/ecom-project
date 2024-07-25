@@ -57,7 +57,7 @@ export default function DealsSection() {
                 <img
                   src={slide.img}
                   alt="Slide"
-                  className="h-[40rem] object-cover"
+                  className="h-[40rem] object-cover "
                 />
               </SwiperSlide>
             ))}
