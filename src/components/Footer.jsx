@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import BrandImage from "../assets/images/FASCO.png";
+import BrandImage from "../assets/images/shopping-bag_3.png";
 
 const _footerMenu = [
   {
@@ -21,7 +21,7 @@ export default function Footer() {
     <footer className="customContainer py-10 space-y-10 mt-10">
       <section className="flex flex-col sm:flex-row sm:justify-between  gap-8">
         <Link to={"/"}>
-          <img src={BrandImage} alt="Brand Logo" className="w-40 h-9" />
+          <img src={BrandImage} alt="Brand Logo" className="w-16" />
         </Link>
         <nav>
           <ul className="flex flex-col sm:flex-row justify-start sm:justify-between gap-4 sm:gap-14 capitalize ">

@@ -1,10 +1,10 @@
-import { _routes } from "../constants";
-import { IoCloseOutline } from "react-icons/io5";
-import { HiBars3BottomRight } from "react-icons/hi2";
 import { useEffect, useState } from "react";
-import useWindowSize from "../hooks/useWindowSize";
+import { HiBars3BottomRight } from "react-icons/hi2";
 import { Link } from "react-router-dom";
-import BrandImage from "../assets/images/FASCO.png";
+import { IoCloseOutline } from "react-icons/io5";
+import useWindowSize from "../hooks/useWindowSize";
+import { _routes } from "../constants";
+import BrandImage from "../assets/images/shopping-bag_3.png";
 
 export default function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -23,7 +23,7 @@ export default function Header() {
   return (
     <header className="w-full flex justify-between items-center py-20">
       <Link to={"/"}>
-        <img src={BrandImage} alt="Brand Logo" />
+        <img src={BrandImage} alt="Brand Logo" className="w-16" />
       </Link>
       <nav
         className={
@@ -47,8 +47,8 @@ export default function Header() {
                   ? "btn"
                   : "hover:bg-gray-100 py-2 px-4 rounded-md transition-all duration-300 ease-in-out"
               }`}
+              onClick={() => setIsNavOpen(false)}
             >
-              {/* <Link to={route.path}>{route.name}</Link> */}
               <a href={route.path}>{route.name}</a>
             </li>
           ))}

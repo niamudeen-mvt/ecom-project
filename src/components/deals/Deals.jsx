@@ -54,11 +54,9 @@ export default function DealsSection() {
           <CustomSlider>
             {_slides.map((slide) => (
               <SwiperSlide key={slide.id}>
-                <img
-                  src={slide.img}
-                  alt="Slide"
-                  className="h-[40rem] object-cover "
-                />
+                <div className="h-[40rem]">
+                  <img src={slide.img} alt="Slide" className="object-cover" />
+                </div>
               </SwiperSlide>
             ))}
           </CustomSlider>
