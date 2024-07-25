@@ -5,7 +5,7 @@ export default function Loader() {
   useEffect(() => {
     setTimeout(() => {
       setshow(false);
-    }, 2 * 1000);
+    }, 1 * 1000);
   }, []);
   return (
     <>

@@ -14,23 +14,23 @@ export default function Modal({ isShow }) {
             id="default-modal"
             tabindex="-1"
             aria-hidden="true"
-            class="overflow-y-auto overflow-x-hidden
+            className="overflow-y-auto overflow-x-hidden
         "
           >
-            <div class="relative p-4 w-full max-w-2xl max-h-full ">
+            <div className="relative p-4 w-full max-w-2xl max-h-full ">
               {/* modal starts here */}
-              <div class="relative bg-white shadow rounded-xl p-5">
-                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
-                  <h3 class="text-xl font-semibold text-gray-900">
+              <div className="relative bg-white shadow rounded-xl p-5">
+                <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
+                  <h3 className="text-xl font-semibold text-gray-900">
                     Terms of Service
                   </h3>
                   <button
                     type="button"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
                     onClick={handleClose}
                   >
                     <svg
-                      class="w-3 h-3"
+                      className="w-3 h-3"
                       aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -44,12 +44,12 @@ export default function Modal({ isShow }) {
                         d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                       />
                     </svg>
-                    <span class="sr-only">Close modal</span>
+                    <span className="sr-only">Close modal</span>
                   </button>
                 </div>
                 {/* modal contet goes here */}
-                <div class="p-4 md:p-5  space-y-4">
-                  <p class="text-base leading-relaxed text-gray-500">
+                <div className="p-4 md:p-5  space-y-4">
+                  <p className="text-base leading-relaxed text-gray-500">
                     With less than a month to go before the European Union
                     enacts new consumer privacy laws for its citizens, companies
                     around the world are updating their terms of service
@@ -57,7 +57,7 @@ export default function Modal({ isShow }) {
                   </p>
                 </div>
                 {/* modal action buttons */}
-                <div class="flex items-center p-4 md:p-5 rounded-b gap-x-5">
+                <div className="flex items-center p-4 md:p-5 rounded-b gap-x-5">
                   <button type="button" className="btn" onClick={handleClose}>
                     I accept
                   </button>

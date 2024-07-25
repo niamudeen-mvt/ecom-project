@@ -16,6 +16,7 @@ export default function ProductSection() {
       `https://fakestoreapi.com/products/category/${activeCategory}`
     );
     setProducts(data || []);
+    return true;
   };
 
   const getCategories = async () => {
@@ -23,6 +24,7 @@ export default function ProductSection() {
       "https://fakestoreapi.com/products/categories"
     );
     setCategories(data || []);
+    return true;
   };
 
   const { isLoading: fetchingProducts } = useQuery({
