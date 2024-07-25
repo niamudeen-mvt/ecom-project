@@ -15,13 +15,13 @@ export default function LandingPage() {
         <Header />
         <HeroSection />
         <LogoSlider />
-        <StaticButtons />
       </div>
       <DealsSection />
       <ProductSection />
       <TestimonialSection />
       <Footer />
       <Loader />
+      <StaticButtons />
     </>
   );
 }

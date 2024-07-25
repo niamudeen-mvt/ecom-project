@@ -84,6 +84,9 @@ h1 {
   .flexSbs {
     @apply flex justify-between items-center;
   }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* deals swiper */

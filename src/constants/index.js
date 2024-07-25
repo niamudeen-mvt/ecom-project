@@ -25,3 +25,12 @@ export const _routes = [
     isButton: true,
   },
 ];
+
+// cart
+export const _cartTableColumns = [
+  "S no.",
+  "Product Image",
+  // "Quantity",
+  "Price",
+  "Total Price",
+];
