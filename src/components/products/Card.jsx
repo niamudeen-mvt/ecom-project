@@ -2,13 +2,17 @@ import { useNavigate } from "react-router-dom";
 import Rating from "../shared/Rating";
 import Skeleton from "../shared/Skeleton";
 import { FaImage } from "react-icons/fa6";
-import { addToCart } from "../../utils/cart";
 import Toast from "../shared/toast/Toast";
 import useShowToast from "../../hooks/useShowToast";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../store/features/cartSlice";
 
 export default function ProductCard({ product, isLoading }) {
   const navigate = useNavigate();
   const { showToast, showToastHandler } = useShowToast();
+  const cart = useSelector((state) => state.cart?.data);
+  const dispatch = useDispatch();
+
   const goToProduct = (productId) => {
     if (!productId) return;
     navigate(`/product/${product.id}`);
@@ -17,9 +21,11 @@ export default function ProductCard({ product, isLoading }) {
   const handleCartProduct = (event, product) => {
     event.stopPropagation();
     if (!product) return;
-    const status = addToCart(product);
 
-    if (status === "ADDED") {
+    if (cart && cart.find((item) => item.id === product.id)) {
+      return;
+    } else {
+      dispatch(addToCart(product));
       showToastHandler();
     }
   };

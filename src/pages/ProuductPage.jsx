@@ -5,14 +5,19 @@ import { useQuery } from "@tanstack/react-query";
 import Rating from "../components/shared/Rating";
 import Skeleton from "../components/shared/Skeleton";
 import { FaImage } from "react-icons/fa6";
-import { addToCart } from "../utils/cart";
 import useShowToast from "../hooks/useShowToast";
 import Toast from "../components/shared/toast/Toast";
+import StaticButtons from "../components/StaticButton";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../store/features/cartSlice";
 
 export default function ProuductPage() {
   const { id: productId } = useParams();
   const [product, setProduct] = useState({});
   const { showToast, showToastHandler } = useShowToast();
+
+  const cart = useSelector((state) => state.cart?.data);
+
   const getProductsById = async () => {
     const { data } = await fetchProducts(
       `https://fakestoreapi.com/products/${productId}`
@@ -20,11 +25,21 @@ export default function ProuductPage() {
     setProduct(data || {});
     return true;
   };
-
   const { isLoading: fetchingProduct } = useQuery({
     queryKey: ["products", productId],
     queryFn: getProductsById,
   });
+
+  const dispatch = useDispatch();
+  const handleCartProduct = (product) => {
+    if (!product) return;
+    if (cart && cart.find((item) => item.id === product.id)) {
+      return;
+    } else {
+      dispatch(addToCart(product));
+      showToastHandler();
+    }
+  };
 
   return (
     <>
@@ -34,7 +49,7 @@ export default function ProuductPage() {
           message="Proudct added to the cart successfully"
         />
       )}
-      <section className="min-h-screen customContainer flexCenter">
+      <section className="min-h-screen customContainer flexCenter section">
         {product && (
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-20 w-full">
             {/* product image */}
@@ -85,14 +100,7 @@ export default function ProuductPage() {
               {!fetchingProduct && (
                 <button
                   className="btn capitalize !py-5 !px-16"
-                  onClick={() => {
-                    if (!product) return;
-                    const status = addToCart(product);
-
-                    if (status === "ADDED") {
-                      showToastHandler();
-                    }
-                  }}
+                  onClick={() => handleCartProduct(product)}
                 >
                   add to cart
                 </button>
@@ -101,6 +109,7 @@ export default function ProuductPage() {
           </section>
         )}
       </section>
+      <StaticButtons />
     </>
   );
 }

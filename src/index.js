@@ -7,6 +7,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 const queryClient = new QueryClient();
 
@@ -14,7 +16,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </QueryClientProvider>
   </React.StrictMode>
 );
