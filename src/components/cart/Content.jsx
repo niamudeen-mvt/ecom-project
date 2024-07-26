@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { _cartTableColumns } from "../../constants";
+import { CART_TABLE_COLUMNS } from "../../constants";
 import { removeCartProduct } from "../../store/features/cartSlice";
 import QuantityInput from "../../components/shared/QuantityInput";
 import {
@@ -36,7 +36,7 @@ export default function CartContent() {
             <table className="text-sm text-left rtl:text-right overflow-x-auto max-w-[100%] w-full text-black">
               <thead className="text-sm bg-black text-white uppercase ">
                 <tr>
-                  {_cartTableColumns.map((column) => {
+                  {CART_TABLE_COLUMNS.map((column) => {
                     return (
                       <th
                         key={column}

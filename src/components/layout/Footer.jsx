@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import BrandImage from "../../assets/images/shopping-bag_3.png";
-import { _footerMenu } from "../../constants";
+import { FOOTER_LINKS } from "../../constants";
 
 export default function Footer() {
   return (
@@ -11,7 +11,7 @@ export default function Footer() {
         </Link>
         <nav className="hidden">
           <ul className="flex flex-col sm:flex-row justify-start sm:justify-between gap-4 sm:gap-14 capitalize ">
-            {_footerMenu.map((menu) => (
+            {FOOTER_LINKS.map((menu) => (
               <li key={menu.id}>{menu.name}</li>
             ))}
           </ul>

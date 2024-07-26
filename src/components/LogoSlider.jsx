@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
-import { _slidesMenu } from "../constants";
+import { SLIDES_MENU } from "../constants";
 
 export default function LogoSlider() {
   return (
@@ -28,7 +28,7 @@ export default function LogoSlider() {
           disableOnInteraction: false,
         }}
       >
-        {_slidesMenu.map((slide) => (
+        {SLIDES_MENU.map((slide) => (
           <SwiperSlide key={slide.id} className="h-full">
             <div className="flex justify-center sm:justify-start">
               <img src={slide.img} alt={slide.name} className="w-[19rem]" />

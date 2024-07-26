@@ -9,7 +9,7 @@ import img_3 from "../assets/images/products/img_3.png";
 import img_4 from "../assets/images/products/img_4.png";
 import img_5 from "../assets/images/products/img_5.png";
 
-export const _routes = [
+export const ROUTES = [
   {
     name: "Home",
     path: "/",
@@ -34,9 +34,9 @@ export const _routes = [
 ];
 
 // cart
-export const _cartTableColumns = ["Product image", "Details"];
+export const CART_TABLE_COLUMNS = ["Product image", "Details"];
 
-export const _slidesMenu = [
+export const SLIDES_MENU = [
   {
     id: 1,
     img: FirstSlideImgae,
@@ -59,7 +59,7 @@ export const _slidesMenu = [
   },
 ];
 
-export const _commonSlides = [
+export const COMMON_SLIDES = [
   {
     id: 1,
     img: img_1,
@@ -81,7 +81,7 @@ export const _commonSlides = [
     img: img_5,
   },
 ];
-export const _footerMenu = [
+export const FOOTER_LINKS = [
   {
     id: 1,
     name: "About us",
@@ -94,4 +94,11 @@ export const _footerMenu = [
     id: 3,
     name: "FAQ",
   },
+];
+
+export const POPULAR_CATEGORIES = [
+  "mens-shoes",
+  "mens-watches",
+  "womens-bags",
+  "womens-shoes",
 ];

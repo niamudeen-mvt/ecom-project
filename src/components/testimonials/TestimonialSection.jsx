@@ -3,7 +3,7 @@ import NavigationButton from "../shared/slider/NavigationButton";
 import CustomSlider from "../shared/slider/CustomSlider";
 import TestmonialCard from "./Card";
 import SectionText from "../shared/SectionText";
-import { _commonSlides } from "../../constants";
+import { COMMON_SLIDES } from "../../constants";
 
 export default function TestimonialSection() {
   return (
@@ -25,7 +25,7 @@ export default function TestimonialSection() {
               },
             }}
           >
-            {_commonSlides.slice(0, 3).map((slide) => (
+            {COMMON_SLIDES.slice(0, 3).map((slide) => (
               <SwiperSlide key={slide.id}>
                 <TestmonialCard slide={slide} />
               </SwiperSlide>

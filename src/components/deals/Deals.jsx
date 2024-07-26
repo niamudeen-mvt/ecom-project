@@ -2,7 +2,7 @@ import { SwiperSlide } from "swiper/react";
 import NavigationButton from "../shared/slider/NavigationButton";
 import CustomSlider from "../shared/slider/CustomSlider";
 import SectionText from "../shared/SectionText";
-import { _commonSlides } from "../../constants";
+import { COMMON_SLIDES } from "../../constants";
 
 export default function DealsSection() {
   return (
@@ -23,7 +23,7 @@ export default function DealsSection() {
         {/* slides section */}
         <div>
           <CustomSlider>
-            {_commonSlides.map((slide) => (
+            {COMMON_SLIDES.map((slide) => (
               <SwiperSlide key={slide.id}>
                 <div className="h-[40rem]">
                   <img src={slide.img} alt="Slide" className="object-cover" />

@@ -49,7 +49,7 @@ export default function ProductSection() {
         </div>
 
         {/* category section */}
-        <div className="flex justify-center sm:justify-end">
+        <div className="">
           <Category
             categories={categories}
             activeCategory={activeCategory}
@@ -61,11 +61,15 @@ export default function ProductSection() {
         {products && products?.length ? (
           <div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-24  py-14
-          bg-gray-50/70
+          bg-gray-50/70 max-h-[120rem] overflow-y-auto hide-scrollbar 
           "
           >
             {products.map((product) => (
-              <ProductCard product={product} isLoading={fetchingProducts} />
+              <ProductCard
+                key={product.id}
+                product={product}
+                isLoading={fetchingProducts}
+              />
             ))}
           </div>
         ) : (
