@@ -25,9 +25,9 @@ export default function ProductCard({ product, isLoading }) {
     if (cart && cart.find((item) => item.id === product.id)) {
       return;
     } else {
-      dispatch(addToCart(product));
-      showToastHandler();
     }
+    dispatch(addToCart(product));
+    showToastHandler();
   };
   return (
     <>
@@ -41,7 +41,7 @@ export default function ProductCard({ product, isLoading }) {
         key={product.id}
         className={`bg-white p-8 rounded-xl shadow-lg max-w-[30rem] ${
           isLoading ? "min-h-[34rem]" : "min-h-[38rem]"
-        }  w-full mx-auto relative`}
+        }  w-full mx-auto relative cursor-pointer`}
         onClick={() => goToProduct(product.id)}
       >
         {isLoading ? (
@@ -72,7 +72,7 @@ export default function ProductCard({ product, isLoading }) {
                 {product.title.substring(0, 20)}..more
               </h3>
               <div className="flexSbs">
-                <h3 className="text-2xl">${product.price}</h3>
+                <h3 className="text-2xl">${Math.floor(product.price)}</h3>
                 <span className="text-red-500">
                   <Rating count={product.rating.rate} />
                 </span>

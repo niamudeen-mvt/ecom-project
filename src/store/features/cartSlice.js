@@ -9,21 +9,36 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      const { id } = action.payload;
-      const index = state.data.findIndex((item) => item.id === id);
+      // const productIndex = state.data.findIndex(
+      //   (item) => item.id === action.payload.id
+      // );
 
-      if (index !== -1) {
-        // Item already exists in the cart, update its quantity
-        state.data[index].qty += 1;
-      } else {
-        // Item doesn't exist in the cart, add it with quantity 1
-        state.data.push({ ...action.payload, qty: 1 });
+      // if (productIndex >= 0) {
+      //   state.data[productIndex] = { ...action.payload };
+      // } else {
+      //   state.data.push({ ...action.payload });
+      // }
+      state.data.push({ ...action.payload, qty: 1 });
+    },
+    updateCart: (state, action) => {
+      state.data = action.payload;
+    },
+    updateCartProdutQty: (state, action) => {
+      const productIndex = state.data.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      if (productIndex >= 0) {
+        state.data[productIndex].qty = action.payload.qty;
       }
+    },
+    removeCartProduct: (state, action) => {
+      state.data = state.data.filter((item) => item.id !== action.payload);
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, removeCartProduct, updateCart, updateCartProdutQty } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

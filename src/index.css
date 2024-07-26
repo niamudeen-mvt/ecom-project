@@ -84,9 +84,12 @@ h1 {
   .flexSbs {
     @apply flex justify-between items-center;
   }
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
+  .qtyBtn {
+    @apply shadow  px-4 py-2 rounded-lg  bg-black text-white;
   }
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* deals swiper */

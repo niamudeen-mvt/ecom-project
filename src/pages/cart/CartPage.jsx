@@ -1,27 +1,16 @@
-import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { _cartTableColumns } from "../../constants";
-import { IoCartOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-
-// const QuantityInput = (productId) => {
-//   const { count, handleIncrement, handleDecrement } = useCounter();
-//   return (
-//     <div className="flex gap-4" key={productId}>
-//       <button className="btn !py-2 !px-8" onClick={handleDecrement}>
-//         -
-//       </button>
-//       <button>{count}</button>
-//       <button className="btn !py-2 !px-8" onClick={handleIncrement}>
-//         +
-//       </button>
-//     </div>
-//   );
-// };
+import { removeCartProduct } from "../../store/features/cartSlice";
+import QuantityInput from "../../components/shared/QuantityInput";
+import {
+  getItemsFromLocalStorage,
+  setItemsIntoLocalStorage,
+} from "../../utils/helper";
+import { MdDeleteOutline } from "react-icons/md";
 
 export default function CartPage() {
   const cart = useSelector((state) => state.cart?.data);
-
+  const dispatch = useDispatch();
   const modifiedCart = cart?.map((product) => {
     return {
       ...product,
@@ -29,11 +18,21 @@ export default function CartPage() {
     };
   });
 
+  const handleDeleteCartProduct = (productId) => {
+    dispatch(removeCartProduct(productId));
+
+    const cartLC = getItemsFromLocalStorage("cart", true);
+    if (cartLC) {
+      const newCart = cartLC.filter((item) => item.id !== productId);
+      setItemsIntoLocalStorage("cart", newCart, true);
+    }
+  };
+
   return (
     <>
-      <section className="customContainer min-h-screen flexCenter">
+      <section className="customContainer min-h-screen">
         {modifiedCart && modifiedCart.length > 0 && (
-          <div className="relative overflow-x-auto w-full max-h-[60rem]  hide-scrollbar">
+          <div className="relative overflow-x-auto w-full max-h-[70rem]  hide-scrollbar">
             <table
               className="text-sm text-left rtl:text-right 0 overflow-x-auto max-w-[100%] w-full text-black
   "
@@ -42,37 +41,55 @@ export default function CartPage() {
                 <tr>
                   {_cartTableColumns.map((column) => {
                     return (
-                      <th key={column} scope="col" className="px-6 py-8">
+                      <th
+                        key={column}
+                        scope="col"
+                        className="px-6 py-8 w-1/2 capitalize text-base font-normal"
+                      >
                         {column}
                       </th>
                     );
                   })}
                 </tr>
               </thead>
-              {/* table content goes here */}
 
               <tbody>
-                {modifiedCart.map((product, index) => {
+                {modifiedCart.map((product) => {
                   return (
                     <>
                       <tr key={product.id}>
-                        <td className="px-6 py-4 text-xl"> {index + 1}</td>
-                        <td className="px-6 py-4">
-                          <div className="w-40 h-40 p-5">
+                        <td className="px-6 py-4 relative">
+                          <div className="w-40 h-40 p-5 ">
                             <img
                               src={product.image}
                               alt="Product"
                               className="w-full h-full"
                             />
                           </div>
+                          <button
+                            className="absolute top-5 left-0 btn !w-max p-2"
+                            onClick={() => handleDeleteCartProduct(product.id)}
+                          >
+                            <MdDeleteOutline size={20} />
+                          </button>
                         </td>
-                        {/* <td className="px-6 py-4 text-xl">
-                        <QuantityInput productId={product.id} />
-                      </td> */}
-
-                        <td className="px-6 py-4 text-xl">${product.price}</td>
-                        <td className="px-6 py-4 text-xl">
-                          ${parseInt(product.price) * parseInt(product.qty)}
+                        <td className="px-6 text-xl py-8">
+                          <div className="space-y-6">
+                            <p className="text-black text-xl font-semibold">
+                              {product.title}
+                            </p>
+                            <p className="text-gray-500 text-xl">
+                              Price: ${Math.floor(product.price)}
+                            </p>
+                            <p className="text-black text-2xl">
+                              Total Price: $
+                              {parseInt(product.price) * parseInt(product.qty)}
+                            </p>
+                            <QuantityInput
+                              prouductId={product.id}
+                              qty={product.qty}
+                            />
+                          </div>
                         </td>
                       </tr>
                     </>
@@ -80,24 +97,8 @@ export default function CartPage() {
                 })}
               </tbody>
             </table>
-            {/* <div className="text-right">
-          <button className="btn uppercase">Subtotal</button>
-        </div> */}
           </div>
         )}
-
-        {!modifiedCart ||
-          (modifiedCart?.length === 0 && (
-            <div className="flex flex-col items-center gap-10">
-              <IoCartOutline size={100} />
-              <h1 className="text-6xl font-semibold capitalize">
-                your cart is empty
-              </h1>
-              <Link to="/">
-                <button className="btn capitalize">continue shopping</button>
-              </Link>
-            </div>
-          ))}
       </section>
     </>
   );

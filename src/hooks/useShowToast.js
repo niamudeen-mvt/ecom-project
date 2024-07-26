@@ -7,7 +7,7 @@ export default function useShowToast() {
     setShowToast(true);
     setTimeout(() => {
       setShowToast(false);
-    }, 1 * 1000);
+    }, 500);
   };
 
   return { showToast, showToastHandler };

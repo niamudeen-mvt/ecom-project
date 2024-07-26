@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchProducts } from "../services/api/products";
-import { useQuery } from "@tanstack/react-query";
 import Rating from "../components/shared/Rating";
 import Skeleton from "../components/shared/Skeleton";
 import { FaImage } from "react-icons/fa6";
@@ -10,6 +9,7 @@ import Toast from "../components/shared/toast/Toast";
 import StaticButtons from "../components/StaticButton";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/features/cartSlice";
+import { useQuery } from "@tanstack/react-query";
 
 export default function ProuductPage() {
   const { id: productId } = useParams();
@@ -82,7 +82,6 @@ export default function ProuductPage() {
               ) : (
                 <Rating count={product.rating?.rate} />
               )}
-
               <p>
                 {fetchingProduct ? (
                   <Skeleton className="w-1/2" />
@@ -94,9 +93,10 @@ export default function ProuductPage() {
                 {fetchingProduct ? (
                   <Skeleton className="w-1/2" />
                 ) : (
-                  `$${product.price}`
+                  `$${Math.floor(product.price)}`
                 )}
               </p>
+
               {!fetchingProduct && (
                 <button
                   className="btn capitalize !py-5 !px-16"

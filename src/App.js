@@ -2,29 +2,29 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LandingPage from "./pages/landing-page/LandingPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProuductPage from "./pages/ProuductPage";
-import CartPage from "./pages/cart/CartPage";
+import AppLayout from "./components/layout/AppLayout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LandingPage />,
-  },
-  {
-    path: "/product/:id",
-    element: <ProuductPage />,
-  },
-  {
-    path: "/cart",
-    element: <CartPage />,
-  },
-  {
-    path: "*",
-    element: <NotFoundPage />,
+    element: <AppLayout />,
+    children: [
+      {
+        path: "/",
+        element: <LandingPage />,
+      },
+      {
+        path: "/product/:id",
+        element: <ProuductPage />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
+      },
+    ],
   },
 ]);
 
-function App() {
+export default function App() {
   return <RouterProvider router={router} />;
 }
-
-export default App;

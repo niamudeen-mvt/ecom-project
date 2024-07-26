@@ -27,10 +27,4 @@ export const _routes = [
 ];
 
 // cart
-export const _cartTableColumns = [
-  "S no.",
-  "Product Image",
-  // "Quantity",
-  "Price",
-  "Total Price",
-];
+export const _cartTableColumns = ["Product image", "Details"];
