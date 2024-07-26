@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { HiBars3BottomRight } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import { IoCloseOutline } from "react-icons/io5";
-import useWindowSize from "../hooks/useWindowSize";
-import { _routes } from "../constants";
-import BrandImage from "../assets/images/shopping-bag_3.png";
+import useWindowSize from "../../hooks/useWindowSize";
+import { _routes } from "../../constants";
+import BrandImage from "../../assets/images/shopping-bag_3.png";
 
-export default function Header() {
+export default function Navbar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const windowSize = useWindowSize();
@@ -21,7 +21,7 @@ export default function Header() {
     }
   }, [windowSize.width]);
   return (
-    <header className="w-full flex justify-between items-center py-20">
+    <header className="customContainer w-full flex justify-between items-center py-20">
       <Link to={"/"}>
         <img src={BrandImage} alt="Brand Logo" className="w-16" />
       </Link>
@@ -55,9 +55,15 @@ export default function Header() {
         </ul>
       </nav>
       {isNavOpen ? (
-        <IoCloseOutline className="text-4xl xl:hidden z-50" onClick={toggle} />
+        <IoCloseOutline
+          className="cursor-pointer text-4xl xl:hidden z-50"
+          onClick={toggle}
+        />
       ) : (
-        <HiBars3BottomRight className="text-4xl xl:hidden" onClick={toggle} />
+        <HiBars3BottomRight
+          className="cursor-pointer text-4xl xl:hidden"
+          onClick={toggle}
+        />
       )}
     </header>
   );

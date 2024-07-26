@@ -3,6 +3,10 @@ export default function Category({
   activeCategory,
   setActiveCategory,
 }) {
+  const handleCategoryChange = (category) => {
+    if (!category) return;
+    setActiveCategory(category);
+  };
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-10">
       {categories &&
@@ -10,12 +14,12 @@ export default function Category({
         categories.map((category) => (
           <button
             key={category}
-            className={`capitalize ${
+            className={`capitalize !text-lg ${
               activeCategory === category
                 ? "btn"
                 : "btn bg-gray-100 text-black shadow-none"
             }`}
-            onClick={() => setActiveCategory(category)}
+            onClick={() => handleCategoryChange(category)}
           >
             {category}
           </button>

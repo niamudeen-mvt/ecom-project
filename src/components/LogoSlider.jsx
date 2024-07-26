@@ -1,38 +1,10 @@
-import { Swiper } from "swiper/react";
-import { SwiperSlide } from "swiper/react";
-import FirstSlideImgae from "../assets/images/logo (1).png";
-import SecondSlideImgae from "../assets/images/logo (2).png";
-import ThirdSlideImgae from "../assets/images/logo (3).png";
-import FourthSlideImgae from "../assets/images/logo(4).png";
-import FifthSlideImgae from "../assets/images/logo (5).png";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
-
-const _slidesMenu = [
-  {
-    id: 1,
-    img: FirstSlideImgae,
-  },
-  {
-    id: 2,
-    img: FourthSlideImgae,
-  },
-  {
-    id: 3,
-    img: FifthSlideImgae,
-  },
-  {
-    id: 4,
-    img: SecondSlideImgae,
-  },
-  {
-    id: 5,
-    img: ThirdSlideImgae,
-  },
-];
+import { _slidesMenu } from "../constants";
 
 export default function LogoSlider() {
   return (
-    <section className="py-28">
+    <section className="customContainer py-28">
       <Swiper
         slidesPerView={1}
         breakpoints={{

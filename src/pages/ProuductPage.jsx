@@ -1,22 +1,21 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { fetchProducts } from "../services/api/products";
 import Rating from "../components/shared/Rating";
 import Skeleton from "../components/shared/Skeleton";
 import { FaImage } from "react-icons/fa6";
-import useShowToast from "../hooks/useShowToast";
-import Toast from "../components/shared/toast/Toast";
 import StaticButtons from "../components/StaticButton";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/features/cartSlice";
-import { useQuery } from "@tanstack/react-query";
+import { sendNotification } from "../utils/notifications";
 
 export default function ProuductPage() {
   const { id: productId } = useParams();
   const [product, setProduct] = useState({});
-  const { showToast, showToastHandler } = useShowToast();
 
   const cart = useSelector((state) => state.cart?.data);
+  const dispatch = useDispatch();
 
   const getProductsById = async () => {
     const { data } = await fetchProducts(
@@ -30,30 +29,22 @@ export default function ProuductPage() {
     queryFn: getProductsById,
   });
 
-  const dispatch = useDispatch();
   const handleCartProduct = (product) => {
     if (!product) return;
     if (cart && cart.find((item) => item.id === product.id)) {
+      sendNotification("warning", "Proudct already exists in the cart");
       return;
     } else {
       dispatch(addToCart(product));
-      showToastHandler();
+      sendNotification("success", "Proudct added to the cart successfully");
     }
   };
 
   return (
     <>
-      {showToast && (
-        <Toast
-          type="success"
-          message="Proudct added to the cart successfully"
-        />
-      )}
       <section className="min-h-screen customContainer flexCenter section">
         {product && (
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-20 w-full">
-            {/* product image */}
-
             {fetchingProduct ? (
               <Skeleton className="!min-h-[60rem] max-w-[60rem]">
                 <FaImage size={34} className="text-white" />
@@ -68,15 +59,14 @@ export default function ProuductPage() {
               </div>
             )}
 
-            {/* product details */}
             <div className="space-y-8">
-              <h1 className="text-6xl font-normal">
+              <h2 className="font-normal">
                 {fetchingProduct ? (
                   <Skeleton className="w-1/2" />
                 ) : (
                   product.title
                 )}
-              </h1>
+              </h2>
               {fetchingProduct ? (
                 <Skeleton className="w-1/2" />
               ) : (

@@ -3,6 +3,9 @@ import { Outlet } from "react-router-dom";
 import { getItemsFromLocalStorage } from "../../utils/helper";
 import { useDispatch } from "react-redux";
 import { updateCart } from "../../store/features/cartSlice";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+import { ToastContainerNotification } from "../../utils/notifications";
 
 export default function AppLayout() {
   const dispatch = useDispatch();
@@ -15,7 +18,12 @@ export default function AppLayout() {
   }, [dispatch]);
   return (
     <>
-      <Outlet />
+      <Navbar />
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
+      <ToastContainerNotification />
     </>
   );
 }

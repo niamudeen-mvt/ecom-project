@@ -1,7 +1,7 @@
 import { IoCartOutline, IoCloseOutline } from "react-icons/io5";
-import CartPage from "../../pages/cart/CartPage";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import CartContent from "./Content";
 
 export default function CartSection({ show, setShow }) {
   const cart = useSelector((state) => state.cart?.data);
@@ -38,15 +38,15 @@ export default function CartSection({ show, setShow }) {
               (cart?.length === 0 && (
                 <div className="flex flex-col items-center gap-10">
                   <IoCartOutline size={100} />
-                  <h1 className="text-4xl font-semibold capitalize">
+                  <h3 className="text-3xl sm:text-5xl font-semibold capitalize">
                     your cart is empty
-                  </h1>
+                  </h3>
                   <button className="btn" onClick={handleGoToShop}>
                     Continue shopping
                   </button>
                 </div>
               ))}
-            <CartPage />
+            <CartContent />
           </div>
         </div>
       </section>

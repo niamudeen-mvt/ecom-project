@@ -1,37 +1,8 @@
 import { SwiperSlide } from "swiper/react";
-
-import img_1 from "../../assets/images/products/img_1.png";
-import img_2 from "../../assets/images/products/img_2.png";
-import img_3 from "../../assets/images/products/img_3.png";
-import img_4 from "../../assets/images/products/img_4.png";
-import img_5 from "../../assets/images/products/img_5.png";
-
 import NavigationButton from "../shared/slider/NavigationButton";
 import CustomSlider from "../shared/slider/CustomSlider";
 import SectionText from "../shared/SectionText";
-
-const _slides = [
-  {
-    id: 1,
-    img: img_1,
-  },
-  {
-    id: 2,
-    img: img_2,
-  },
-  {
-    id: 3,
-    img: img_3,
-  },
-  {
-    id: 4,
-    img: img_4,
-  },
-  {
-    id: 5,
-    img: img_5,
-  },
-];
+import { _commonSlides } from "../../constants";
 
 export default function DealsSection() {
   return (
@@ -52,7 +23,7 @@ export default function DealsSection() {
         {/* slides section */}
         <div>
           <CustomSlider>
-            {_slides.map((slide) => (
+            {_commonSlides.map((slide) => (
               <SwiperSlide key={slide.id}>
                 <div className="h-[40rem]">
                   <img src={slide.img} alt="Slide" className="object-cover" />

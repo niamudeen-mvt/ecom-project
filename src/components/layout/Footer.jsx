@@ -1,20 +1,6 @@
 import { Link } from "react-router-dom";
-import BrandImage from "../assets/images/shopping-bag_3.png";
-
-const _footerMenu = [
-  {
-    id: 1,
-    name: "About us",
-  },
-  {
-    id: 2,
-    name: "Contact",
-  },
-  {
-    id: 3,
-    name: "FAQ",
-  },
-];
+import BrandImage from "../../assets/images/shopping-bag_3.png";
+import { _footerMenu } from "../../constants";
 
 export default function Footer() {
   return (
@@ -23,7 +9,7 @@ export default function Footer() {
         <Link to={"/"}>
           <img src={BrandImage} alt="Brand Logo" className="w-16" />
         </Link>
-        <nav>
+        <nav className="hidden">
           <ul className="flex flex-col sm:flex-row justify-start sm:justify-between gap-4 sm:gap-14 capitalize ">
             {_footerMenu.map((menu) => (
               <li key={menu.id}>{menu.name}</li>
@@ -33,7 +19,7 @@ export default function Footer() {
       </section>
       <div></div>
       <p className="capitalize mx-auto">
-        copyright@ 2024 FASCO. All rights reserved
+        copyright@ 2024 Ecom. All rights reserved
       </p>
     </footer>
   );

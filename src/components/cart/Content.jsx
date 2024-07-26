@@ -8,7 +8,7 @@ import {
 } from "../../utils/helper";
 import { MdDeleteOutline } from "react-icons/md";
 
-export default function CartPage() {
+export default function CartContent() {
   const cart = useSelector((state) => state.cart?.data);
   const dispatch = useDispatch();
   const modifiedCart = cart?.map((product) => {
@@ -30,11 +30,11 @@ export default function CartPage() {
 
   return (
     <>
-      <section className="customContainer min-h-screen">
+      <section className="min-h-screen">
         {modifiedCart && modifiedCart.length > 0 && (
           <div className="relative overflow-x-auto w-full max-h-[70rem]  hide-scrollbar">
             <table
-              className="text-sm text-left rtl:text-right 0 overflow-x-auto max-w-[100%] w-full text-black
+              className="text-sm text-left rtl:text-right  overflow-x-auto max-w-[100%] w-full text-black
   "
             >
               <thead className="text-sm bg-black text-white  uppercase">
@@ -74,7 +74,7 @@ export default function CartPage() {
                           </button>
                         </td>
                         <td className="px-6 text-xl py-8">
-                          <div className="space-y-6">
+                          <div className="space-y-4">
                             <p className="text-black text-xl font-semibold">
                               {product.title}
                             </p>

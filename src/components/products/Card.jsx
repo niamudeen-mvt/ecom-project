@@ -2,14 +2,13 @@ import { useNavigate } from "react-router-dom";
 import Rating from "../shared/Rating";
 import Skeleton from "../shared/Skeleton";
 import { FaImage } from "react-icons/fa6";
-import Toast from "../shared/toast/Toast";
-import useShowToast from "../../hooks/useShowToast";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/features/cartSlice";
+import { sendNotification } from "../../utils/notifications";
 
 export default function ProductCard({ product, isLoading }) {
   const navigate = useNavigate();
-  const { showToast, showToastHandler } = useShowToast();
+
   const cart = useSelector((state) => state.cart?.data);
   const dispatch = useDispatch();
 
@@ -23,20 +22,15 @@ export default function ProductCard({ product, isLoading }) {
     if (!product) return;
 
     if (cart && cart.find((item) => item.id === product.id)) {
+      sendNotification("warning", "Proudct already exists in the cart");
       return;
     } else {
     }
     dispatch(addToCart(product));
-    showToastHandler();
+    sendNotification("success", "Proudct added to the cart successfully");
   };
   return (
     <>
-      {showToast && (
-        <Toast
-          type="success"
-          message="Proudct added to the cart successfully"
-        />
-      )}
       <div
         key={product.id}
         className={`bg-white p-8 rounded-xl shadow-lg max-w-[30rem] ${

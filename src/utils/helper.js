@@ -1,3 +1,7 @@
+/**
+ * functions related to the localstorage
+ * */
+
 export const setItemsIntoLocalStorage = (key, value, isJson = false) => {
   if (isJson) {
     localStorage.setItem(key, JSON.stringify(value));

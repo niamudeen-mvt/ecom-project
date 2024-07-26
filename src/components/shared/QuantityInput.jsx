@@ -4,7 +4,7 @@ import { updateCartProdutQty } from "../../store/features/cartSlice";
 import { setItemsIntoLocalStorage } from "../../utils/helper";
 
 export default function QuantityInput({ prouductId, qty }) {
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(qty ? qty : 1);
 
   const cart = useSelector((state) => state.cart?.data);
   const dispatch = useDispatch();
@@ -27,11 +27,11 @@ export default function QuantityInput({ prouductId, qty }) {
   return (
     <div className="flex gap-4" key={prouductId}>
       <button className="qtyBtn" onClick={handleDecrement}>
-        -{/* <FiMinus /> */}
+        -
       </button>
-      <button className="shadow px-4 rounded-lg">{qty ? qty : count}</button>
+      <button className="shadow px-4 rounded-lg">{count}</button>
       <button className="qtyBtn" onClick={handleIcrement}>
-        +{/* <FiPlus /> */}
+        +
       </button>
     </div>
   );

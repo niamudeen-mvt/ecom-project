@@ -1,26 +1,9 @@
-import img_1 from "../../assets/images/products/img_1.png";
-import img_2 from "../../assets/images/products/img_2.png";
-import img_3 from "../../assets/images/products/img_3.png";
+import { SwiperSlide } from "swiper/react";
 import NavigationButton from "../shared/slider/NavigationButton";
 import CustomSlider from "../shared/slider/CustomSlider";
-import { SwiperSlide } from "swiper/react";
 import TestmonialCard from "./Card";
 import SectionText from "../shared/SectionText";
-
-const _slides = [
-  {
-    id: 1,
-    img: img_1,
-  },
-  {
-    id: 2,
-    img: img_2,
-  },
-  {
-    id: 3,
-    img: img_3,
-  },
-];
+import { _commonSlides } from "../../constants";
 
 export default function TestimonialSection() {
   return (
@@ -42,7 +25,7 @@ export default function TestimonialSection() {
               },
             }}
           >
-            {_slides.map((slide) => (
+            {_commonSlides.slice(0, 3).map((slide) => (
               <SwiperSlide key={slide.id}>
                 <TestmonialCard slide={slide} />
               </SwiperSlide>

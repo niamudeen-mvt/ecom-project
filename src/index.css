@@ -28,10 +28,6 @@ img {
   display: block;
 }
 
-h1 {
-  font-size: 8rem;
-}
-
 /* .stroke {
   -webkit-text-stroke-width: 0.1rem;
   -webkit-text-stroke-color: #000;
@@ -53,6 +49,10 @@ h1 {
 }
 
 @layer base {
+  h1 {
+    @apply text-[8rem];
+  }
+
   h2 {
     @apply text-5xl capitalize;
   }

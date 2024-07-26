@@ -1,3 +1,14 @@
+import FirstSlideImgae from "../assets/images/logo (1).png";
+import SecondSlideImgae from "../assets/images/logo (2).png";
+import ThirdSlideImgae from "../assets/images/logo (3).png";
+import FourthSlideImgae from "../assets/images/logo(4).png";
+import FifthSlideImgae from "../assets/images/logo (5).png";
+import img_1 from "../assets/images/products/img_1.png";
+import img_2 from "../assets/images/products/img_2.png";
+import img_3 from "../assets/images/products/img_3.png";
+import img_4 from "../assets/images/products/img_4.png";
+import img_5 from "../assets/images/products/img_5.png";
+
 export const _routes = [
   {
     name: "Home",
@@ -11,20 +22,76 @@ export const _routes = [
     name: "New Arrivals",
     path: "#newArrivals",
   },
-  // {
-  //   name: "Packages",
-  //   path: "/",
-  // },
   {
     name: "Sign in",
-    path: "/",
+    path: "#",
   },
   {
     name: "Sign up",
-    path: "/",
+    path: "#",
     isButton: true,
   },
 ];
 
 // cart
 export const _cartTableColumns = ["Product image", "Details"];
+
+export const _slidesMenu = [
+  {
+    id: 1,
+    img: FirstSlideImgae,
+  },
+  {
+    id: 2,
+    img: FourthSlideImgae,
+  },
+  {
+    id: 3,
+    img: FifthSlideImgae,
+  },
+  {
+    id: 4,
+    img: SecondSlideImgae,
+  },
+  {
+    id: 5,
+    img: ThirdSlideImgae,
+  },
+];
+
+export const _commonSlides = [
+  {
+    id: 1,
+    img: img_1,
+  },
+  {
+    id: 2,
+    img: img_2,
+  },
+  {
+    id: 3,
+    img: img_3,
+  },
+  {
+    id: 4,
+    img: img_4,
+  },
+  {
+    id: 5,
+    img: img_5,
+  },
+];
+export const _footerMenu = [
+  {
+    id: 1,
+    name: "About us",
+  },
+  {
+    id: 2,
+    name: "Contact",
+  },
+  {
+    id: 3,
+    name: "FAQ",
+  },
+];
