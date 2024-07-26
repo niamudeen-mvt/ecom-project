@@ -58,7 +58,7 @@ export default function CartContent() {
                         <td className="px-6 py-4 relative">
                           <div className="w-40 h-40 p-5 ">
                             <img
-                              src={product.image}
+                              src={product.thumbnail}
                               alt="Product"
                               className="w-full h-full"
                             />

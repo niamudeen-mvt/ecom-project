@@ -18,12 +18,12 @@ export default function ProuductPage() {
   const dispatch = useDispatch();
 
   const getProductsById = async () => {
-    const { data } = await fetchProducts(
-      `https://fakestoreapi.com/products/${productId}`
-    );
+    const { data } = await fetchProducts(`/products/${productId}`);
+
     setProduct(data || {});
     return true;
   };
+
   const { isLoading: fetchingProduct } = useQuery({
     queryKey: ["products", productId],
     queryFn: getProductsById,
@@ -42,7 +42,7 @@ export default function ProuductPage() {
 
   return (
     <>
-      <section className="min-h-screen customContainer flexCenter section">
+      <section className={`min-h-[60rem] customContainer flexCenter section `}>
         {product && (
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-20 w-full">
             {fetchingProduct ? (
@@ -52,49 +52,51 @@ export default function ProuductPage() {
             ) : (
               <div className="max-h-[60rem] max-w-[60rem]">
                 <img
-                  src={product.image}
+                  src={product.thumbnail}
                   alt="Product"
                   className="object-contain"
                 />
               </div>
             )}
 
-            <div className="space-y-8">
-              <h2 className="font-normal">
+            <div className="flexCenter !justify-start">
+              <div className="space-y-8 ">
+                <h2 className="font-normal text-5xl sm:text-8xl">
+                  {fetchingProduct ? (
+                    <Skeleton className="w-1/2" />
+                  ) : (
+                    product.title
+                  )}
+                </h2>
                 {fetchingProduct ? (
                   <Skeleton className="w-1/2" />
                 ) : (
-                  product.title
+                  <Rating count={product.rating} />
                 )}
-              </h2>
-              {fetchingProduct ? (
-                <Skeleton className="w-1/2" />
-              ) : (
-                <Rating count={product.rating?.rate} />
-              )}
-              <p>
-                {fetchingProduct ? (
-                  <Skeleton className="w-1/2" />
-                ) : (
-                  product.description
-                )}
-              </p>
-              <p className="text-3xl !text-black font-semibold">
-                {fetchingProduct ? (
-                  <Skeleton className="w-1/2" />
-                ) : (
-                  `$${Math.floor(product.price)}`
-                )}
-              </p>
+                <p>
+                  {fetchingProduct ? (
+                    <Skeleton className="w-1/2" />
+                  ) : (
+                    product.description
+                  )}
+                </p>
+                <p className="text-3xl !text-black font-semibold">
+                  {fetchingProduct ? (
+                    <Skeleton className="w-1/2" />
+                  ) : (
+                    `$${Math.floor(product.price)}`
+                  )}
+                </p>
 
-              {!fetchingProduct && (
-                <button
-                  className="btn capitalize !py-5 !px-16"
-                  onClick={() => handleCartProduct(product)}
-                >
-                  add to cart
-                </button>
-              )}
+                {!fetchingProduct && (
+                  <button
+                    className="btn capitalize !py-5 !px-16"
+                    onClick={() => handleCartProduct(product)}
+                  >
+                    add to cart
+                  </button>
+                )}
+              </div>
             </div>
           </section>
         )}

@@ -55,7 +55,7 @@ export default function ProductCard({ product, isLoading }) {
           <>
             {/* top section */}
             <img
-              src={product.image}
+              src={product.thumbnail}
               alt="Product"
               className="h-[20rem] object-contain"
               loading="lazy"
@@ -68,7 +68,7 @@ export default function ProductCard({ product, isLoading }) {
               <div className="flexSbs">
                 <h3 className="text-2xl">${Math.floor(product.price)}</h3>
                 <span className="text-red-500">
-                  <Rating count={product.rating.rate} />
+                  <Rating count={product.rating} />
                 </span>
               </div>
               <div className="flex justify-center">
