@@ -2,15 +2,36 @@ import { IoCartOutline, IoCloseOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CartContent from "./Content";
+import { useEffect, useRef } from "react";
 
 export default function CartSection({ show, setShow }) {
   const cart = useSelector((state) => state.cart?.data);
   const navigate = useNavigate();
+  const cartRef = useRef(null);
 
   const handleGoToShop = () => {
     navigate("/");
     setShow(!show);
   };
+
+  /**
+   * Handle clicks outside the cart section
+   */
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (cartRef.current && !cartRef.current.contains(event.target)) {
+        setShow(false);
+      }
+    };
+
+    if (show) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }
+  }, [show, setShow]);
   return (
     <>
       <section
@@ -22,7 +43,9 @@ export default function CartSection({ show, setShow }) {
           }
           `}
       >
+        {/* Cart Content Goes Here --------- */}
         <div
+          ref={cartRef}
           className={`bg-white max-w-[40rem] w-full p-8 sm:p-12 space-y-8 transition-all duration-300
           ${show ? "-translate-x-0" : "translate-x-[100%]"} 
           `}

@@ -33,11 +33,8 @@ export default function CartContent() {
       <section className="min-h-screen">
         {modifiedCart && modifiedCart.length > 0 && (
           <div className="relative overflow-x-auto w-full max-h-[70rem]  hide-scrollbar">
-            <table
-              className="text-sm text-left rtl:text-right  overflow-x-auto max-w-[100%] w-full text-black
-  "
-            >
-              <thead className="text-sm bg-black text-white  uppercase">
+            <table className="text-sm text-left rtl:text-right overflow-x-auto max-w-[100%] w-full text-black">
+              <thead className="text-sm bg-black text-white uppercase ">
                 <tr>
                   {_cartTableColumns.map((column) => {
                     return (
