@@ -46,11 +46,11 @@ export default function ProuductPage() {
         {product && (
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-80 lg:gap-20 w-full py-10">
             {fetchingProduct ? (
-              <Skeleton className="!h-[60rem] max-w-[60rem]">
+              <Skeleton className="h-[45rem] sm:!h-[50rem] max-w-[60rem]">
                 <FaImage size={34} className="text-white" />
               </Skeleton>
             ) : (
-              <div className="h-[60rem]  max-w-[60rem] bg-gray-100/80 rounded-xl space-y-4 mx-auto">
+              <div className="h-[45rem]  sm:h-[50rem]  max-w-[60rem] bg-gray-100/80 rounded-xl space-y-4 mx-auto">
                 <img
                   src={activeImg ? activeImg : product.thumbnail}
                   alt="Product"

@@ -9,7 +9,7 @@ import UnavailableContent from "../shared/UnavailableContent";
 export default function ProductSection() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [activeCategory, setActiveCategory] = useState("mens-shirts");
+  const [activeCategory, setActiveCategory] = useState("womens-bags");
 
   const getProductsByCategory = async () => {
     const {
