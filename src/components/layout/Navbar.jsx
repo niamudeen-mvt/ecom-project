@@ -31,7 +31,7 @@ export default function Navbar() {
         <nav
           className={
             isNavOpen
-              ? "bg-white absolute top-0 left-0 h-full w-full  flex justify-center items-center z-50"
+              ? "bg-white fixed top-0 left-0 h-screen w-full flex justify-center items-center z-50"
               : "hidden xl:block"
           }
         >
@@ -59,7 +59,7 @@ export default function Navbar() {
         </nav>
         {isNavOpen ? (
           <IoCloseOutline
-            className="cursor-pointer text-4xl xl:hidden z-50"
+            className="cursor-pointer text-4xl xl:hidden z-50 fixed left-[50%]"
             onClick={toggle}
           />
         ) : (
