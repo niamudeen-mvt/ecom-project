@@ -41,7 +41,6 @@ export default function ProuductPage() {
     }
   };
 
-  console.log("product: ", product);
   return (
     <>
       <section className={`min-h-[60rem] customContainer flexCenter section `}>
@@ -60,7 +59,7 @@ export default function ProuductPage() {
                 />
 
                 {/* images array */}
-                <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
+                <div className="grid grid-cols-4  gap-4">
                   {product?.images?.length &&
                     product.images.map((image) => (
                       <div
@@ -71,7 +70,7 @@ export default function ProuductPage() {
                           key={image}
                           src={image}
                           alt="Product"
-                          className="h-[15rem] w-[15rem] imgHover object-contain"
+                          className="h-[10rem] w-[15rem] imgHover object-contain"
                         />
                       </div>
                     ))}

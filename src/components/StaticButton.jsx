@@ -9,7 +9,6 @@ export default function StaticButtons() {
   const cart = useSelector((state) => state.cart?.data);
   const cartProductCount = cart?.length || 0;
   const [showCart, setShowCart] = useState(false);
-  console.log("showCart: ", showCart);
 
   useEffect(() => {
     if (cart?.length > 0) {
