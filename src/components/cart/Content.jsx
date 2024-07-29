@@ -72,7 +72,7 @@ export default function CartContent() {
               })}
             </div>
 
-            <div className="absolute bottom-20 left-10  max-w-[350px] w-full py-10 space-y-4 z-50 bg-white">
+            <div className="absolute bottom-0 left-10  max-w-[350px] w-full py-10 space-y-4 z-50 bg-white border-t">
               <div className="flex justify-between w-full">
                 <h4 className="text-black text-xl font-semibold">Subtotal:</h4>
                 <h4 className="text-xl text-black  font-semibold">

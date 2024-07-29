@@ -15,7 +15,7 @@ export default function ProductCard({ product, isLoading }) {
     <>
       <div
         key={product.id}
-        className={`p-8 rounded-xl max-w-[30rem] ${
+        className={`p-6 rounded-xl max-w-[30rem] ${
           isLoading ? "min-h-[34rem]" : "min-h-[38rem]"
         }  w-full mx-auto relative cursor-pointer`}
         onClick={() => goToProduct(product.id)}
@@ -45,9 +45,9 @@ export default function ProductCard({ product, isLoading }) {
               />
             </div>
             {/* content section  */}
-            <div className="p-8 space-y-3 capitalize absolute left-0 bottom-0 w-full">
+            <div className="p-6 space-y-3 capitalize absolute left-0 bottom-0 w-full">
               <h3 className="text-2xl text-gray-400">
-                {product.title.substring(0, 25)}..more
+                {product.title.substring(0, 20)}..more
               </h3>
               <div className="text-gray-400 text-lg flex gap-2  items-center">
                 <Rating count={1} />

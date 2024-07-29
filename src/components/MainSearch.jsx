@@ -18,9 +18,9 @@ export default function MainSearch({ setShowSearch, showSearch }) {
   const searhcProducts = async () => {
     if (debounceValue === "" && !debounceValue) {
       setSearchProducts([]);
-      return;
+      return false;
     }
-    if (allproducts.length === 0) return;
+    if (allproducts.length === 0) return false;
     const filterProducts = allproducts.filter((product) => {
       return (
         product?.title?.toLowerCase().includes(debounceValue?.toLowerCase()) ||
@@ -30,8 +30,9 @@ export default function MainSearch({ setShowSearch, showSearch }) {
 
     if (filterProducts?.length > 0) {
       setSearchProducts(filterProducts);
-      return;
+      return false;
     }
+    return false;
   };
 
   useEffect(() => {
@@ -75,7 +76,7 @@ export default function MainSearch({ setShowSearch, showSearch }) {
               Search
             </label>
             <div class="relative">
-              <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <div class="absolute inset-y-0 start-0 flex items-center ps-8 pointer-events-none">
                 <svg
                   class="w-4 h-4 text-gray-500 dark:text-gray-400"
                   aria-hidden="true"
@@ -94,7 +95,7 @@ export default function MainSearch({ setShowSearch, showSearch }) {
               </div>
               <input
                 type="text"
-                className="block w-full py-8 px-12 ps-10 text-xl text-gray-900 border  rounded-lg border-black "
+                className="border-2 border-black py-6 px-20 rounded-xl w-full text-xl"
                 placeholder="Search for products..."
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
@@ -127,7 +128,7 @@ export default function MainSearch({ setShowSearch, showSearch }) {
               ))}
             </div>
           ) : (
-            <UnavailableContent content="No products found" />
+            <UnavailableContent content="No products found yet." />
           )}
         </section>
       )}

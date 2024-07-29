@@ -60,7 +60,7 @@ export default function ProductSection() {
         {/* products section */}
         {products && products?.length ? (
           <div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-24  py-14
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-24  py-14
            max-h-[120rem] overflow-y-auto hide-scrollbar 
           "
           >

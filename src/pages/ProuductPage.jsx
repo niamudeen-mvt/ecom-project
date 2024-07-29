@@ -40,18 +40,17 @@ export default function ProuductPage() {
       sendNotification("success", "Proudct added to the cart successfully");
     }
   };
-
   return (
     <>
-      <section className={`min-h-[60rem] customContainer flexCenter section `}>
+      <section className={`min-h-[60rem] customContainer`}>
         {product && (
-          <section className="grid grid-cols-1 lg:grid-cols-2 gap-80 lg:gap-20 w-full">
+          <section className="grid grid-cols-1 lg:grid-cols-2 gap-80 lg:gap-20 w-full py-10">
             {fetchingProduct ? (
-              <Skeleton className="!min-h-[60rem] max-w-[60rem]">
+              <Skeleton className="!h-[60rem] max-w-[60rem]">
                 <FaImage size={34} className="text-white" />
               </Skeleton>
             ) : (
-              <div className="max-h-[60rem] h-full max-w-[60rem] bg-gray-100/80 rounded-xl space-y-4">
+              <div className="h-[60rem]  max-w-[60rem] bg-gray-100/80 rounded-xl space-y-4 mx-auto">
                 <img
                   src={activeImg ? activeImg : product.thumbnail}
                   alt="Product"
@@ -59,7 +58,7 @@ export default function ProuductPage() {
                 />
 
                 {/* images array */}
-                <div className="grid grid-cols-4  gap-4">
+                <div className="grid grid-cols-4 gap-4">
                   {product?.images?.length &&
                     product.images.map((image) => (
                       <div
@@ -78,38 +77,29 @@ export default function ProuductPage() {
               </div>
             )}
 
-            <div className="flexCenter !justify-start">
-              <div className="space-y-8">
+            {fetchingProduct ? (
+              <div className="flex flex-col space-y-8">
+                <Skeleton className="w-1/2" />
+                <Skeleton className="w-1/2" />
+                <Skeleton className="w-1/2" />
+              </div>
+            ) : (
+              <div className="space-y-6">
+                <p className="capitalize">{product.category}</p>
                 <h2 className="font-normal text-5xl sm:text-8xl">
-                  {fetchingProduct ? (
-                    <Skeleton className="w-1/2" />
-                  ) : (
-                    product.title
-                  )}
+                  {product.title}
                 </h2>
-                {fetchingProduct ? (
-                  <Skeleton className="w-1/2" />
-                ) : (
-                  <span className="text-gray-400 flex gap-2 items-center text-xl">
-                    <Rating count={1} />
-                    {product.rating?.toFixed(1)}
-                  </span>
-                )}
-                <p>
-                  {fetchingProduct ? (
-                    <Skeleton className="w-1/2" />
-                  ) : (
-                    product.description
-                  )}
+                <span className="text-gray-400 flex gap-2 items-center text-xl">
+                  <Rating count={1} />
+                  {product.rating?.toFixed(1)}
+                </span>
+                <p>{product.description}</p>
+                <p className="capitalize text-green-400 font-semibold">
+                  {product.availabilityStatus}
                 </p>
                 <p className="text-3xl !text-black font-semibold">
-                  {fetchingProduct ? (
-                    <Skeleton className="w-1/2" />
-                  ) : (
-                    `$${Math.floor(product.price)}`
-                  )}
+                  {`$${Math.floor(product.price)}`}
                 </p>
-
                 {!fetchingProduct && (
                   <button
                     className="btn capitalize !py-5 !px-16 w-full"
@@ -119,7 +109,7 @@ export default function ProuductPage() {
                   </button>
                 )}
               </div>
-            </div>
+            )}
           </section>
         )}
       </section>

@@ -33,9 +33,6 @@ export const ROUTES = [
   },
 ];
 
-// cart
-export const CART_TABLE_COLUMNS = ["Product image", "Details"];
-
 export const SLIDES_MENU = [
   {
     id: 1,

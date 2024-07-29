@@ -4,7 +4,7 @@ import { getItemsFromLocalStorage } from "../../utils/helper";
 import { useDispatch } from "react-redux";
 import { updateCart } from "../../store/features/cartSlice";
 import Navbar from "./Navbar";
-import Footer from "./Footer";
+
 import { ToastContainerNotification } from "../../utils/notifications";
 
 export default function AppLayout() {
@@ -22,7 +22,6 @@ export default function AppLayout() {
       <main>
         <Outlet />
       </main>
-      <Footer />
       <ToastContainerNotification />
     </>
   );
