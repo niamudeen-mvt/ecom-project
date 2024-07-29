@@ -1,20 +1,21 @@
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { CART_TABLE_COLUMNS } from "../../constants";
 import { removeCartProduct } from "../../store/features/cartSlice";
 import QuantityInput from "../../components/shared/QuantityInput";
 import {
   getItemsFromLocalStorage,
   setItemsIntoLocalStorage,
 } from "../../utils/helper";
-import { MdDeleteOutline } from "react-icons/md";
 
 export default function CartContent() {
   const cart = useSelector((state) => state.cart?.data);
   const dispatch = useDispatch();
+
   const modifiedCart = cart?.map((product) => {
     return {
       ...product,
-      total: parseInt(product.price) * product.quantity,
+      price: Math.floor(product.price),
+      total: Math.floor(product.price) * parseInt(product.qty),
     };
   });
 
@@ -28,73 +29,69 @@ export default function CartContent() {
     }
   };
 
+  const SUBTOTAL = modifiedCart.reduce((result, product) => {
+    result += product.total;
+    return result;
+  }, 0);
   return (
     <>
       <section className="min-h-screen">
         {modifiedCart && modifiedCart.length > 0 && (
-          <div className="relative overflow-x-auto w-full max-h-[70rem]  hide-scrollbar">
-            <table className="text-sm text-left rtl:text-right overflow-x-auto max-w-[100%] w-full text-black">
-              <thead className="text-sm bg-black text-white uppercase ">
-                <tr>
-                  {CART_TABLE_COLUMNS.map((column) => {
-                    return (
-                      <th
-                        key={column}
-                        scope="col"
-                        className="px-6 py-8 w-1/2 capitalize text-base font-normal"
-                      >
-                        {column}
-                      </th>
-                    );
-                  })}
-                </tr>
-              </thead>
+          <>
+            <div className="relative overflow-x-auto w-full max-h-[70rem]  space-y-10">
+              {modifiedCart.map((product) => {
+                return (
+                  <div key={product.id} className="grid grid-cols-3">
+                    <div className="w-40 h-40 p-5 bg-gray-100">
+                      <img
+                        src={product.thumbnail}
+                        alt="Product"
+                        className="w-full h-full"
+                      />
+                    </div>
+                    <div className="space-y-5 w-full col-span-2">
+                      <h2 className="text-black text-xl ">{product.title}</h2>
+                      <p className="text-black text-xl font-semibold">
+                        ${product.price}
+                      </p>
+                      <div className="flex justify-between  items-center">
+                        <QuantityInput
+                          prouductId={product.id}
+                          qty={product.qty}
+                        />
+                        <p
+                          className="text-right !text-red-500 font-semibold text-base cursor-pointer"
+                          onClick={() => handleDeleteCartProduct(product.id)}
+                        >
+                          Remove
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
 
-              <tbody>
-                {modifiedCart.map((product) => {
-                  return (
-                    <>
-                      <tr key={product.id}>
-                        <td className="px-6 py-4 relative">
-                          <div className="w-40 h-40 p-5 ">
-                            <img
-                              src={product.thumbnail}
-                              alt="Product"
-                              className="w-full h-full"
-                            />
-                          </div>
-                          <button
-                            className="absolute top-5 left-0 btn !w-max p-2"
-                            onClick={() => handleDeleteCartProduct(product.id)}
-                          >
-                            <MdDeleteOutline size={20} />
-                          </button>
-                        </td>
-                        <td className="px-6 text-xl py-8">
-                          <div className="space-y-4">
-                            <p className="text-black text-xl font-semibold">
-                              {product.title}
-                            </p>
-                            <p className="text-gray-500 text-xl">
-                              Price: ${Math.floor(product.price)}
-                            </p>
-                            <p className="text-black text-2xl">
-                              Total Price: $
-                              {parseInt(product.price) * parseInt(product.qty)}
-                            </p>
-                            <QuantityInput
-                              prouductId={product.id}
-                              qty={product.qty}
-                            />
-                          </div>
-                        </td>
-                      </tr>
-                    </>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+            <div className="absolute bottom-20 left-10  max-w-[350px] w-full py-10 space-y-4 z-50 bg-white">
+              <div className="flex justify-between w-full">
+                <h4 className="text-black text-xl font-semibold">Subtotal:</h4>
+                <h4 className="text-xl text-black  font-semibold">
+                  ${SUBTOTAL}
+                </h4>
+              </div>
+              <p>Shipping and taxes are calculated at checkout</p>
+
+              <button className="btn w-full">Checkout</button>
+              <p className="text-center">
+                OR
+                <Link to="/">
+                  <span className="text-xl text-black  font-semibold ml-2">
+                    Continue Shopping
+                  </span>
+                </Link>
+              </p>
+            </div>
+          </>
         )}
       </section>
     </>

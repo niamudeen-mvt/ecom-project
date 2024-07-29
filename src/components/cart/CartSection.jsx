@@ -37,7 +37,7 @@ export default function CartSection({ show, setShow }) {
   return (
     <>
       <section
-        className={`fixed top-0 right-0 h-full w-full flex justify-end -z-30 bg-black/50 transition-all duration-300
+        className={`fixed top-0 right-0 h-full w-full flex justify-end  bg-black/50 transition-all duration-300
           ${
             show
               ? "opacity-100 pointer-events-auto visible"
@@ -52,11 +52,19 @@ export default function CartSection({ show, setShow }) {
           ${show ? "-translate-x-0" : "translate-x-[100%]"} 
           `}
         >
-          <IoCloseOutline
-            size={22}
-            className="ml-auto cursor-pointer"
-            onClick={() => setShow(!show)}
-          />
+          <div className="flex justify-between items-center">
+            <div>
+              <h2 className="text-3xl text-black font-semibold">Cart</h2>
+              {cart?.length > 0 && (
+                <p className="text-gray-500">{cart?.length} items</p>
+              )}
+            </div>
+            <IoCloseOutline
+              size={22}
+              className="cursor-pointer"
+              onClick={() => setShow(!show)}
+            />
+          </div>
 
           <div>
             {!cart ||

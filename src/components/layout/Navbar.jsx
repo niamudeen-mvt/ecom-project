@@ -22,7 +22,7 @@ export default function Navbar() {
   }, [windowSize.width]);
   return (
     <header className="customContainer w-full flex justify-between items-center py-20">
-      <Link to={"/"}>
+      <Link to={"/"} className="flex items-center gap-2">
         <img src={BrandImage} alt="Brand Logo" className="w-16" />
       </Link>
       <nav

@@ -13,6 +13,7 @@ import { sendNotification } from "../utils/notifications";
 export default function ProuductPage() {
   const { id: productId } = useParams();
   const [product, setProduct] = useState({});
+  const [activeImg, setActiveImg] = useState("");
 
   const cart = useSelector((state) => state.cart?.data);
   const dispatch = useDispatch();
@@ -40,27 +41,46 @@ export default function ProuductPage() {
     }
   };
 
+  console.log("product: ", product);
   return (
     <>
       <section className={`min-h-[60rem] customContainer flexCenter section `}>
         {product && (
-          <section className="grid grid-cols-1 lg:grid-cols-2 gap-20 w-full">
+          <section className="grid grid-cols-1 lg:grid-cols-2 gap-80 lg:gap-20 w-full">
             {fetchingProduct ? (
               <Skeleton className="!min-h-[60rem] max-w-[60rem]">
                 <FaImage size={34} className="text-white" />
               </Skeleton>
             ) : (
-              <div className="max-h-[60rem] max-w-[60rem]">
+              <div className="max-h-[60rem] h-full max-w-[60rem] bg-gray-100/80 rounded-xl space-y-4">
                 <img
-                  src={product.thumbnail}
+                  src={activeImg ? activeImg : product.thumbnail}
                   alt="Product"
-                  className="object-contain"
+                  className="object-contain imgHover"
                 />
+
+                {/* images array */}
+                <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
+                  {product?.images?.length &&
+                    product.images.map((image) => (
+                      <div
+                        className="bg-gray-100/80 rounded-xl cursor-pointer"
+                        onClick={() => setActiveImg(image)}
+                      >
+                        <img
+                          key={image}
+                          src={image}
+                          alt="Product"
+                          className="h-[15rem] w-[15rem] imgHover object-contain"
+                        />
+                      </div>
+                    ))}
+                </div>
               </div>
             )}
 
             <div className="flexCenter !justify-start">
-              <div className="space-y-8 ">
+              <div className="space-y-8">
                 <h2 className="font-normal text-5xl sm:text-8xl">
                   {fetchingProduct ? (
                     <Skeleton className="w-1/2" />
@@ -71,7 +91,10 @@ export default function ProuductPage() {
                 {fetchingProduct ? (
                   <Skeleton className="w-1/2" />
                 ) : (
-                  <Rating count={product.rating} />
+                  <span className="text-gray-400 flex gap-2 items-center text-xl">
+                    <Rating count={1} />
+                    {product.rating?.toFixed(1)}
+                  </span>
                 )}
                 <p>
                   {fetchingProduct ? (
@@ -90,7 +113,7 @@ export default function ProuductPage() {
 
                 {!fetchingProduct && (
                   <button
-                    className="btn capitalize !py-5 !px-16"
+                    className="btn capitalize !py-5 !px-16 w-full"
                     onClick={() => handleCartProduct(product)}
                   >
                     add to cart
