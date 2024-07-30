@@ -6,6 +6,11 @@ import {
   getItemsFromLocalStorage,
   setItemsIntoLocalStorage,
 } from "../../utils/helper";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+const stripe = await loadStripe(
+  `${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`
+);
 
 export default function CartContent() {
   const cart = useSelector((state) => state.cart?.data);
@@ -33,6 +38,26 @@ export default function CartContent() {
     result += product.total;
     return result;
   }, 0);
+
+  const makePayment = async () => {
+    if (cart?.length === 0) return;
+    try {
+      const resp = await axios.post(
+        "https://test-backend-iota.vercel.app/cart-checkout",
+        {
+          products: cart,
+        }
+      );
+
+      const session = resp?.data;
+      const result = stripe.redirectToCheckout({
+        sessionId: session?.id,
+      });
+      console.log("result: ", result);
+    } catch (error) {
+      console.log("error: ", error);
+    }
+  };
   return (
     <>
       <section className="min-h-screen">
@@ -54,6 +79,7 @@ export default function CartContent() {
                       <p className="text-black text-xl font-semibold">
                         ${product.price}
                       </p>
+
                       <div className="flex justify-between  items-center">
                         <QuantityInput
                           prouductId={product.id}
@@ -81,7 +107,9 @@ export default function CartContent() {
               </div>
               <p>Shipping and taxes are calculated at checkout</p>
 
-              <button className="btn w-full">Checkout</button>
+              <button className="btn w-full" onClick={makePayment}>
+                Checkout
+              </button>
               <p className="text-center">
                 OR
                 <Link to="/">

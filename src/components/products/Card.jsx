@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import Rating from "../shared/Rating";
 import Skeleton from "../shared/Skeleton";
 import { FaImage } from "react-icons/fa6";
-
 export default function ProductCard({ product, isLoading }) {
   const navigate = useNavigate();
 
@@ -56,6 +55,10 @@ export default function ProductCard({ product, isLoading }) {
               <h3 className="text-2xl font-semibold">
                 ${Math.floor(product.price)}
               </h3>
+              {/* <h3 className="text-2xl font-semibold flex items-center">
+                <MdCurrencyRupee />
+                {Math.floor(product.price)}
+              </h3> */}
             </div>
           </>
         )}

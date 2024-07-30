@@ -95,9 +95,6 @@ img {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
-.nav-open {
-  height: 100vh; /* 100% of the viewport height */
-}
 
 /* deals swiper */
 .deals-swiper .swiper-pagination {
