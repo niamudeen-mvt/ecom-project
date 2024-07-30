@@ -5,6 +5,9 @@ import { sendNotification } from "../utils/notifications";
 
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { setItemsIntoLocalStorage } from "../utils/helper";
+import { useDispatch } from "react-redux";
+import { updateAuthStatus } from "../store/features/authSlice";
 
 export default function LoginPage() {
   const [userDetail, setUserDetail] = useState({
@@ -13,6 +16,7 @@ export default function LoginPage() {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleOnChange = (e) => {
     setUserDetail({
@@ -31,7 +35,8 @@ export default function LoginPage() {
     },
     onSuccess: (resp) => {
       if (resp?.status === 200) {
-        sendNotification("success", "Login Successful");
+        dispatch(updateAuthStatus(true));
+        setItemsIntoLocalStorage("userId", resp?.data?.userId, false);
         navigate("/dashboard");
       }
     },

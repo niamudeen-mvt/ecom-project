@@ -3,6 +3,9 @@ import { LuChevronFirst, LuChevronLast } from "react-icons/lu";
 import { Link, useNavigate } from "react-router-dom";
 import { IoLogOutOutline } from "react-icons/io5";
 import useWindowSize from "../../hooks/useWindowSize";
+import { useDispatch } from "react-redux";
+import { updateAuthStatus } from "../../store/features/authSlice";
+
 const SidebarContext = createContext();
 
 export default function SideNavigation({ children }) {
@@ -10,7 +13,10 @@ export default function SideNavigation({ children }) {
 
   const [expanded, setExpanded] = useState(true);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const logout = () => {
+    dispatch(updateAuthStatus(false));
+    localStorage.removeItem("userId");
     navigate("/");
   };
 
