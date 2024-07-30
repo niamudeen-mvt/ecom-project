@@ -5,6 +5,10 @@ import ProuductPage from "./pages/ProuductPage";
 import AppLayout from "./components/layout/AppLayout";
 import SuccessPage from "./pages/SuccessPage";
 import ErrorPage from "./pages/ErrorPage";
+import AdminLayout from "./components/layout/AdminLayout";
+import DashboardPage from "./pages/DashbaordPage";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +18,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <LandingPage />,
+      },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
+      {
+        path: "/signup",
+        element: <SignupPage />,
       },
       {
         path: "/success",
@@ -32,6 +44,14 @@ const router = createBrowserRouter([
   {
     path: "*",
     element: <NotFoundPage />,
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <AdminLayout>
+        <DashboardPage />
+      </AdminLayout>
+    ),
   },
 ]);
 

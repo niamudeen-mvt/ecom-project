@@ -50,10 +50,9 @@ export default function CartContent() {
       );
 
       const session = resp?.data;
-      const result = stripe.redirectToCheckout({
+      stripe.redirectToCheckout({
         sessionId: session?.id,
       });
-      console.log("result: ", result);
     } catch (error) {
       console.log("error: ", error);
     }

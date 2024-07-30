@@ -52,7 +52,7 @@ export default function Navbar() {
                 }`}
                 onClick={() => setIsNavOpen(false)}
               >
-                <a href={route.path}>{route.name}</a>
+                <Link to={route.path}>{route.name}</Link>
               </li>
             ))}
           </ul>

@@ -24,11 +24,11 @@ export const ROUTES = [
   },
   {
     name: "Sign in",
-    path: "#",
+    path: "/login",
   },
   {
     name: "Sign up",
-    path: "#",
+    path: "/signup",
     isButton: true,
   },
 ];
