@@ -5,6 +5,7 @@ import { sendNotification } from "../utils/notifications";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { SERVER_URL } from "../constants";
+import { VALIDATE_USER_DETAIL } from "../utils/helper";
 
 export default function SignupPage() {
   const [userDetail, setUserDetail] = useState({
@@ -46,13 +47,16 @@ export default function SignupPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const IS_ANY_FIELD_EMPTY = Object.keys(userDetail).some(
-      (key) => userDetail[key] === ""
-    );
+    const { ERRORS, IS_EMPTY } = VALIDATE_USER_DETAIL(userDetail);
 
-    if (IS_ANY_FIELD_EMPTY) {
+    if (IS_EMPTY) {
       return sendNotification("warning", "Please fill all the fields");
     }
+
+    if (ERRORS && ERRORS.length > 0) {
+      return sendNotification("error", ERRORS[0]);
+    }
+
     mutate(userDetail);
   };
 

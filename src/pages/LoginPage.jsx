@@ -5,7 +5,10 @@ import { sendNotification } from "../utils/notifications";
 
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { setItemsIntoLocalStorage } from "../utils/helper";
+import {
+  setItemsIntoLocalStorage,
+  VALIDATE_USER_DETAIL,
+} from "../utils/helper";
 import { useDispatch } from "react-redux";
 import { updateAuthStatus } from "../store/features/authSlice";
 import { SERVER_URL } from "../constants";
@@ -53,12 +56,14 @@ export default function LoginPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const IS_ANY_FIELD_EMPTY = Object.keys(userDetail).some(
-      (key) => userDetail[key] === ""
-    );
+    const { ERRORS, IS_EMPTY } = VALIDATE_USER_DETAIL(userDetail);
 
-    if (IS_ANY_FIELD_EMPTY) {
+    if (IS_EMPTY) {
       return sendNotification("warning", "Please fill all the fields");
+    }
+
+    if (ERRORS && ERRORS.length > 0) {
+      return sendNotification("error", ERRORS[0]);
     }
 
     mutate(userDetail);
