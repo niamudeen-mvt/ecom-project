@@ -59,10 +59,10 @@ export default function SignupPage() {
   return (
     <section className="customContainer min-h-[80vh] flexCenter">
       <form
-        className="max-w-[36rem] min-h-[50rem] mx-auto text-lg p-14 rounded-lg space-y-10 shadow-lg"
+        className="max-w-[36rem] min-h-[40rem] mx-auto text-lg p-14 rounded-xl space-y-10 shadow-lg"
         onSubmit={handleSubmit}
       >
-        <h2>Signup</h2>
+        <h2 className="mb-14">Signup</h2>
         <CustomInput
           label="username"
           handleOnChange={handleOnChange}

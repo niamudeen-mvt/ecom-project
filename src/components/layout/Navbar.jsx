@@ -3,7 +3,7 @@ import { HiBars3BottomRight } from "react-icons/hi2";
 import { Link } from "react-router-dom";
 import { IoCloseOutline } from "react-icons/io5";
 import useWindowSize from "../../hooks/useWindowSize";
-import { ROUTES } from "../../constants";
+import { NAV_ROUTES } from "../../constants";
 import BrandImage from "../../assets/images/shopping-bag_3.png";
 import { CiSearch } from "react-icons/ci";
 import MainSearch from "../MainSearch";
@@ -42,7 +42,7 @@ export default function Navbar() {
                 : "flex justify-between items-center gap-14 capitalize"
             }
           >
-            {ROUTES.map((route) => (
+            {NAV_ROUTES.map((route) => (
               <li
                 key={route.name}
                 className={` ${

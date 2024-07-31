@@ -1,27 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
+import { useDispatch } from "react-redux";
+import { updateAuthStatus } from "../../store/features/authSlice";
 
 export default function UserMenu() {
   const [show, setShow] = useState(false);
   const userMenuRef = useRef(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
-        setShow(false);
-      }
-    };
-
-    if (show) {
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }
-  }, [show, setShow]);
+  useOnClickOutside(userMenuRef, () => setShow(false));
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userLogout = () => {
+    dispatch(updateAuthStatus(false));
+    localStorage.removeItem("userId");
+    navigate("/");
+  };
 
   return (
-    <div className="">
+    <div>
       <button
         id="dropdownUserAvatarButton"
         data-dropdown-toggle="dropdownAvatar"
@@ -66,7 +63,9 @@ export default function UserMenu() {
             </li>
           </ul>
           <div className="py-2">
-            <button className="block px-4 py-2 !text-lg">Sign out</button>
+            <button className="block px-4 py-2 !text-lg" onClick={userLogout}>
+              Sign out
+            </button>
           </div>
         </div>
       )}

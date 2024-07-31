@@ -9,7 +9,7 @@ import img_3 from "../assets/images/products/img_3.png";
 import img_4 from "../assets/images/products/img_4.png";
 import img_5 from "../assets/images/products/img_5.png";
 
-export const ROUTES = [
+export const NAV_ROUTES = [
   {
     name: "Home",
     path: "/",

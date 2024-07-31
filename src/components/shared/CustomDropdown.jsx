@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 export default function CustomDropdown({
   categoryList,
@@ -14,24 +15,8 @@ export default function CustomDropdown({
     handleCategoryChange(category);
     setShowDropDown(false);
   };
-  /**
-   * Handle clicks outside the cart section
-   */
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
-        setShowDropDown(false);
-      }
-    };
-
-    if (showDropDown) {
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }
-  }, [showDropDown, setShowDropDown]);
+  useOnClickOutside(dropDownRef, () => setShowDropDown(false));
 
   return (
     <div className="relative" ref={dropDownRef}>

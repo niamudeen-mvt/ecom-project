@@ -14,7 +14,7 @@ export default function SideNavigation({ children }) {
   const [expanded, setExpanded] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const logout = () => {
+  const userLogout = () => {
     dispatch(updateAuthStatus(false));
     localStorage.removeItem("userId");
     navigate("/");
@@ -51,7 +51,7 @@ export default function SideNavigation({ children }) {
 
           <div
             className="flex p-3 mx-2 mb-10  cursor-pointer rounded-lg hover:bg-black hover:text-white transition-all duration-300"
-            onClick={() => logout()}
+            onClick={() => userLogout()}
           >
             <div className={`flex items-center overflow-hidden `}>
               <IoLogOutOutline size={22} />

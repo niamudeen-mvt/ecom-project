@@ -24,7 +24,7 @@ export default function AdminLayout({ children }) {
 
   return (
     <>
-      <section className="min-h-100 w-full flex relative">
+      <section className="min-h-screen w-full flex relative">
         <SideNavigation>
           {MENU_ITEMS?.map((menu) => {
             return (
@@ -40,11 +40,11 @@ export default function AdminLayout({ children }) {
           })}
         </SideNavigation>
 
-        <main className="w-full min-h-screen px-4 overflow-y-auto  bg-gray-100">
+        <main className="w-full min-h-screen px-4hide-scrollbar bg-gray-100">
           <div className="flex items-center justify-end p-10">
             <UserMenu />
           </div>
-          <section className="h-full w-full flexCenter flex-col  p-5 sm:p-10 ">
+          <section className="w-full flexCenter flex-col  p-5 sm:p-10 ">
             {children}
           </section>
         </main>

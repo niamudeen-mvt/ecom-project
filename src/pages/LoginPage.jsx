@@ -67,10 +67,10 @@ export default function LoginPage() {
   return (
     <section className="customContainer min-h-[80vh] flexCenter">
       <form
-        className="max-w-[36rem] min-h-[50rem] mx-auto text-lg p-14 rounded-lg space-y-10 shadow-lg"
+        className="max-w-[36rem] min-h-[40rem] mx-auto text-lg p-14 rounded-xl space-y-10 shadow-lg"
         onSubmit={handleSubmit}
       >
-        <h2>Sign in</h2>
+        <h2 className="mb-14">Sign in</h2>
         <CustomInput
           label="email"
           handleOnChange={handleOnChange}
@@ -78,6 +78,7 @@ export default function LoginPage() {
         />
         <CustomInput
           label="password"
+          type="password"
           handleOnChange={handleOnChange}
           value={userDetail.password}
         />

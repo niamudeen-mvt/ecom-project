@@ -1,10 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CartContent from "./Content";
 import { IoCloseOutline } from "react-icons/io5";
 
 import EmptyCartImage from "../../assets/images/empty-cart.jpg";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 export default function CartSection({ show, setShow }) {
   const cart = useSelector((state) => state.cart?.data);
@@ -16,24 +17,26 @@ export default function CartSection({ show, setShow }) {
     setShow(!show);
   };
 
-  /**
-   * Handle clicks outside the cart section
-   */
+  useOnClickOutside(cartRef, () => setShow(false));
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (cartRef.current && !cartRef.current.contains(event.target)) {
-        setShow(false);
-      }
-    };
-
-    if (show) {
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }
-  }, [show, setShow]);
+  const renderEmtpyCart = () => {
+    return (
+      <>
+        {!cart ||
+          (cart?.length === 0 && (
+            <div className="flex flex-col items-center gap-10">
+              <img src={EmptyCartImage} alt="" />
+              <h3 className="text-3xl sm:text-5xl font-semibold capitalize">
+                your cart is <span className="text-orange-600">empty</span>
+              </h3>
+              <button className="btn !text-lg" onClick={handleGoToShop}>
+                Continue shopping
+              </button>
+            </div>
+          ))}
+      </>
+    );
+  };
   return (
     <>
       <section
@@ -67,18 +70,7 @@ export default function CartSection({ show, setShow }) {
           </div>
 
           <div>
-            {!cart ||
-              (cart?.length === 0 && (
-                <div className="flex flex-col items-center gap-10">
-                  <img src={EmptyCartImage} alt="" />
-                  <h3 className="text-3xl sm:text-5xl font-semibold capitalize">
-                    your cart is <span className="text-orange-600">empty</span>
-                  </h3>
-                  <button className="btn !text-lg" onClick={handleGoToShop}>
-                    Continue shopping
-                  </button>
-                </div>
-              ))}
+            {renderEmtpyCart()}
             <CartContent />
           </div>
         </div>
