@@ -8,6 +8,7 @@ import axios from "axios";
 import { setItemsIntoLocalStorage } from "../utils/helper";
 import { useDispatch } from "react-redux";
 import { updateAuthStatus } from "../store/features/authSlice";
+import { SERVER_URL } from "../constants";
 
 export default function LoginPage() {
   const [userDetail, setUserDetail] = useState({
@@ -27,10 +28,7 @@ export default function LoginPage() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (userDetail) => {
-      const resp = await axios.post(
-        "https://ecommerce-backend-jy6t.onrender.com/api/v1/auth/login",
-        userDetail
-      );
+      const resp = await axios.post(`${SERVER_URL}/auth/login`, userDetail);
       return resp;
     },
     onSuccess: (resp) => {
@@ -42,9 +40,11 @@ export default function LoginPage() {
     },
     onError: (error) => {
       const errors = error?.response?.data?.errors;
-      if (error?.response?.status === 400) {
+      const errorMessage = error?.response?.data?.message;
+      if (errorMessage) {
         sendNotification("error", error?.response?.data?.message);
-      } else if (errors && errors.length > 0 && errors[0]?.msg) {
+      }
+      if (errors && errors.length > 0 && errors[0]?.msg) {
         sendNotification("error", errors[0]?.msg);
       }
     },

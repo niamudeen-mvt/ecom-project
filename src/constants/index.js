@@ -9,6 +9,10 @@ import img_3 from "../assets/images/products/img_3.png";
 import img_4 from "../assets/images/products/img_4.png";
 import img_5 from "../assets/images/products/img_5.png";
 
+// export const PROD_URL =  "https://ecommerce-backend-jy6t.onrender.com/api/v1/auth/register"
+export const SERVER_URL = "https://ecom-sever.onrender.com/api/v1";
+// export const SERVER_URL = "http://localhost:7000/api/v1";
+
 export const NAV_ROUTES = [
   {
     name: "Home",

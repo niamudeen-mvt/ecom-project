@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { sendNotification } from "../utils/notifications";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import { SERVER_URL } from "../constants";
 
 export default function SignupPage() {
   const [userDetail, setUserDetail] = useState({
@@ -21,10 +22,7 @@ export default function SignupPage() {
   };
   const { mutate, isPending } = useMutation({
     mutationFn: async (userDetail) => {
-      const resp = await axios.post(
-        "https://ecommerce-backend-jy6t.onrender.com/api/v1/auth/register",
-        userDetail
-      );
+      const resp = await axios.post(`${SERVER_URL}/auth/register`, userDetail);
       return resp;
     },
     onSuccess: (resp) => {
@@ -35,9 +33,11 @@ export default function SignupPage() {
     },
     onError: (error) => {
       const errors = error?.response?.data?.errors;
-      if (error?.response?.status === 400) {
+      const errorMessage = error?.response?.data?.message;
+      if (errorMessage) {
         sendNotification("error", error?.response?.data?.message);
-      } else if (errors && errors.length > 0 && errors[0]?.msg) {
+      }
+      if (errors && errors.length > 0 && errors[0]?.msg) {
         sendNotification("error", errors[0]?.msg);
       }
     },
