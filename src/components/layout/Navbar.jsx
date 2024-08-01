@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { HiBars3BottomRight } from "react-icons/hi2";
 import { Link } from "react-router-dom";
+import { HiBars3BottomRight } from "react-icons/hi2";
+import { CiSearch } from "react-icons/ci";
 import { IoCloseOutline } from "react-icons/io5";
 import useWindowSize from "../../hooks/useWindowSize";
-import { NAV_ROUTES } from "../../constants";
+import { ROUTES } from "../../constants";
 import BrandImage from "../../assets/images/shopping-bag_3.png";
-import { CiSearch } from "react-icons/ci";
 import MainSearch from "../MainSearch";
 
 export default function Navbar() {
@@ -42,19 +42,23 @@ export default function Navbar() {
                 : "flex justify-between items-center gap-14 capitalize"
             }
           >
-            {NAV_ROUTES.map((route) => (
-              <li
-                key={route.name}
-                className={` ${
-                  route.isButton
-                    ? "btn"
-                    : "hover:bg-gray-100 py-2 px-4 rounded-md transition-all duration-300 ease-in-out"
-                }`}
-                onClick={() => setIsNavOpen(false)}
-              >
-                <Link to={route.path}>{route.name}</Link>
-              </li>
-            ))}
+            {ROUTES &&
+              ROUTES.length > 0 &&
+              ROUTES.filter((route) => !route.private && !route.hidden).map(
+                (route) => (
+                  <li
+                    key={route.id}
+                    className={` ${
+                      route.isButton
+                        ? "btn"
+                        : "hover:bg-gray-100 py-2 px-4 rounded-md transition-all duration-300 ease-in-out"
+                    }`}
+                    onClick={() => setIsNavOpen(false)}
+                  >
+                    <Link to={route.path}>{route.title}</Link>
+                  </li>
+                )
+              )}
           </ul>
         </nav>
         {isNavOpen ? (

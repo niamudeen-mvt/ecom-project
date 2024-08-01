@@ -1,41 +1,163 @@
+import LandingPage from "../pages/landing-page/LandingPage";
+import LoginPage from "../pages/LoginPage";
+import SignupPage from "../pages/SignupPage";
+import DashboardPage from "../pages/DashbaordPage";
+import Speech from "../pages/Speech";
+import SpeechLib from "../pages/SpeechLib";
+import NotFoundPage from "../pages/NotFoundPage";
+import SuccessPage from "../pages/SuccessPage";
+import ErrorPage from "../pages/ErrorPage";
+import ProuductPage from "../pages/ProuductPage";
+import AdminLayout from "../components/layout/AdminLayout";
+import AppLayout from "../components/layout/AppLayout";
+
 import FirstSlideImgae from "../assets/images/logo (1).png";
 import SecondSlideImgae from "../assets/images/logo (2).png";
 import ThirdSlideImgae from "../assets/images/logo (3).png";
 import FourthSlideImgae from "../assets/images/logo(4).png";
 import FifthSlideImgae from "../assets/images/logo (5).png";
+
 import img_1 from "../assets/images/products/img_1.png";
 import img_2 from "../assets/images/products/img_2.png";
 import img_3 from "../assets/images/products/img_3.png";
 import img_4 from "../assets/images/products/img_4.png";
 import img_5 from "../assets/images/products/img_5.png";
 
-// export const PROD_URL =  "https://ecommerce-backend-jy6t.onrender.com/api/v1/auth/register"
+import { RxDashboard } from "react-icons/rx";
+/**
+ * =================================================
+ * SERVER_URL : THIS IS THE URL OF THE SERVER
+ * =================================================
+ * */
+
 export const SERVER_URL = "https://ecom-sever.onrender.com/api/v1";
 // export const SERVER_URL = "http://localhost:7000/api/v1";
 
-export const NAV_ROUTES = [
+/**
+ * =================================================
+ * ROUTES : ALL THE ROUTES OF THE APP
+ * =================================================
+ * */
+
+export const ROUTES = [
   {
-    name: "Home",
+    id: "home",
+    element: <LandingPage />,
+    title: "Home",
     path: "/",
   },
   {
-    name: "Deals",
+    title: "Deals",
     path: "#deals",
   },
   {
-    name: "New Arrivals",
+    title: "New Arrivals",
     path: "#newArrivals",
   },
   {
-    name: "Sign in",
+    id: "signin",
+    element: <LoginPage />,
+    title: "Sign in",
     path: "/login",
   },
   {
-    name: "Sign up",
+    id: "signup",
+    element: <SignupPage />,
+    title: "Sign up",
     path: "/signup",
     isButton: true,
   },
+  {
+    id: "success",
+    path: "/success",
+    title: "Success",
+    element: <SuccessPage />,
+    hidden: true,
+  },
+  {
+    id: "error",
+    path: "/error",
+    title: "Error",
+    element: <ErrorPage />,
+    hidden: true,
+  },
+  {
+    path: "/product/:id",
+    element: <ProuductPage />,
+    hidden: true,
+  },
+  {
+    id: "dashboard",
+    title: "Dashboard",
+    element: <DashboardPage />,
+    path: "/dashboard",
+    icon: <RxDashboard size={18} />,
+    private: true,
+  },
+  {
+    id: "speech",
+    path: "/speech",
+    title: "Speech",
+    element: <Speech />,
+    icon: <RxDashboard size={18} />,
+    private: true,
+  },
+  {
+    id: "speech-lib",
+    title: "Speech Library",
+    path: "/speech-lib",
+    element: <SpeechLib />,
+    icon: <RxDashboard size={18} />,
+    private: true,
+  },
+  {
+    id: "404",
+    path: "*",
+    title: "Not found",
+    element: <NotFoundPage />,
+    hidden: true,
+  },
 ];
+
+export const PUBLIC_ROUTES =
+  ROUTES &&
+  ROUTES.length > 0 &&
+  ROUTES.filter((route) => !route?.private && route.id !== "404");
+
+export const PRIVATE_ROUTES =
+  ROUTES &&
+  ROUTES.length > 0 &&
+  ROUTES.filter((route) => route?.private && !route.hidden).map((route) => {
+    return {
+      ...route,
+      path: route?.path,
+      element: <AdminLayout>{route?.element}</AdminLayout>,
+    };
+  });
+
+export const _routes = [
+  {
+    path: "/",
+    element: <AppLayout />,
+    children: PUBLIC_ROUTES,
+  },
+  ...PRIVATE_ROUTES,
+  {
+    path: "*",
+    element: <NotFoundPage />,
+  },
+] || [
+  {
+    path: "/",
+    element: <NotFoundPage />,
+  },
+];
+
+/**
+ * =================================================
+ * ROUTES ENDS HERE
+ * =================================================
+ * */
 
 export const SLIDES_MENU = [
   {
@@ -82,6 +204,14 @@ export const COMMON_SLIDES = [
     img: img_5,
   },
 ];
+
+export const POPULAR_CATEGORIES = [
+  "mens-shoes",
+  "mens-watches",
+  "womens-bags",
+  "womens-shoes",
+];
+
 export const FOOTER_LINKS = [
   {
     id: 1,
@@ -95,11 +225,4 @@ export const FOOTER_LINKS = [
     id: 3,
     name: "FAQ",
   },
-];
-
-export const POPULAR_CATEGORIES = [
-  "mens-shoes",
-  "mens-watches",
-  "womens-bags",
-  "womens-shoes",
 ];

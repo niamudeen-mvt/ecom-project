@@ -87,7 +87,7 @@ export default function SignupPage() {
           handleOnChange={handleOnChange}
           value={userDetail.password}
         />
-        <button type="submit" className="btn w-full">
+        <button type="submit" className="btn w-full" disabled={isPending}>
           {isPending ? "Loading..." : "Submit"}
         </button>
 

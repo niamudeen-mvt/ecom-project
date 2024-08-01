@@ -1,19 +1,10 @@
 import { SidebarItem } from "./SideNavigation";
-import { RxDashboard } from "react-icons/rx";
 import { Navigate, useLocation } from "react-router-dom";
 import SideNavigation from "./SideNavigation";
 
 import { useAuth } from "../../store/features/authSlice";
 import UserMenu from "./UserMenu";
-
-const MENU_ITEMS = [
-  {
-    id: "dashboard",
-    title: "Dashboard",
-    url: "/dashboard",
-    icon: <RxDashboard size={18} />,
-  },
-];
+import { PRIVATE_ROUTES } from "../../constants";
 
 export default function AdminLayout({ children }) {
   const authUser = useAuth();
@@ -26,22 +17,24 @@ export default function AdminLayout({ children }) {
     <>
       <section className="min-h-screen w-full flex relative">
         <SideNavigation>
-          {MENU_ITEMS?.map((menu) => {
-            return (
-              <SidebarItem
-                key={menu?.id}
-                icon={menu?.icon}
-                text={menu?.title}
-                alert
-                url={menu?.url}
-                active={route === menu?.url ? true : false}
-              />
-            );
-          })}
+          {PRIVATE_ROUTES &&
+            PRIVATE_ROUTES.length > 0 &&
+            PRIVATE_ROUTES.filter((menu) => menu?.private)?.map((menu) => {
+              return (
+                <SidebarItem
+                  key={menu?.id}
+                  icon={menu?.icon}
+                  text={menu?.title}
+                  alert
+                  url={menu?.path}
+                  active={route === menu?.path ? true : false}
+                />
+              );
+            })}
         </SideNavigation>
 
-        <main className="w-full min-h-screen px-4hide-scrollbar bg-gray-100">
-          <div className="flex items-center justify-end p-10">
+        <main className="w-full max-h-screen px-4 hide-scrollbar bg-gray-100 border overflow-y-auto relative">
+          <div className="absolute top-0 w-full flex items-center justify-end p-10">
             <UserMenu />
           </div>
           <section className="w-full flexCenter flex-col  p-5 sm:p-10 ">
