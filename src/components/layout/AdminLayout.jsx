@@ -34,7 +34,7 @@ export default function AdminLayout({ children }) {
         </SideNavigation>
 
         <main className="w-full max-h-screen px-4 hide-scrollbar bg-gray-100 border overflow-y-auto relative">
-          <div className="absolute top-0 w-full flex items-center justify-end p-10">
+          <div className="flex items-center justify-end p-10">
             <UserMenu />
           </div>
           <section className="w-full flexCenter flex-col  p-5 sm:p-10 ">
