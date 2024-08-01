@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { HiBars3BottomRight } from "react-icons/hi2";
 import { CiSearch } from "react-icons/ci";
+import { HiBars3BottomRight } from "react-icons/hi2";
 import { IoCloseOutline } from "react-icons/io5";
 import useWindowSize from "../../hooks/useWindowSize";
 import { ROUTES } from "../../constants";

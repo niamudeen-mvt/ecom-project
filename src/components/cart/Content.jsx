@@ -8,6 +8,8 @@ import {
 } from "../../utils/helper";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
+import { SERVER_URL } from "../../constants";
+import { useMutation } from "@tanstack/react-query";
 const stripe = await loadStripe(
   `${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`
 );
@@ -42,12 +44,9 @@ export default function CartContent() {
   const makePayment = async () => {
     if (cart?.length === 0) return;
     try {
-      const resp = await axios.post(
-        "https://test-backend-iota.vercel.app/cart-checkout",
-        {
-          products: cart,
-        }
-      );
+      const resp = await axios.post(`${SERVER_URL}/cart-checkout`, {
+        products: cart,
+      });
 
       const session = resp?.data;
       stripe.redirectToCheckout({
@@ -57,6 +56,10 @@ export default function CartContent() {
       console.log("error: ", error);
     }
   };
+
+  const { isPending, mutate: checkout } = useMutation({
+    mutationFn: makePayment,
+  });
 
   const renderCartProudcts = () => {
     return (
@@ -103,8 +106,8 @@ export default function CartContent() {
         </div>
         <p>Shipping and taxes are calculated at checkout</p>
 
-        <button className="btn w-full" onClick={makePayment}>
-          Checkout
+        <button className="btn w-full" onClick={checkout}>
+          {isPending ? "Loading..." : "Checkout"}
         </button>
         <p className="text-center">
           OR

@@ -1,5 +1,7 @@
 /**
- * functions related to the localstorage
+ * =================================================
+ * UTILITY FUNCTIONS RELATED TO THE LOCAL STORAGE
+ * =================================================
  * */
 
 export const setItemsIntoLocalStorage = (key, value, isJson = false) => {
@@ -20,6 +22,12 @@ export const getItemsFromLocalStorage = (key, isJson = false) => {
     }
   }
 };
+
+/**
+ * =================================================
+ * CUSTOM VALIDATION
+ * =================================================
+ * */
 
 export const VALIDATE_USER_DETAIL = (userData) => {
   if (!userData) return false;
