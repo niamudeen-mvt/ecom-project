@@ -4,7 +4,7 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import "./index.css";
+import "./assets/css/style.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";

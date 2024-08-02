@@ -33,22 +33,22 @@ export default function AudioPlayer({ src, onPlay, id, isActive }) {
   }, [isPlaying]);
 
   // Handle visibility change to pause and resume the audio
-  useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        audioRef.current?.pause();
-        setIsPlaying(false);
-      } else if (isActive) {
-        audioRef.current?.play();
-        setIsPlaying(true);
-      }
-    };
+  // useEffect(() => {
+  //   const handleVisibilityChange = () => {
+  //     if (document.hidden) {
+  //       audioRef.current?.pause();
+  //       setIsPlaying(false);
+  //     } else if (isActive) {
+  //       audioRef.current?.play();
+  //       setIsPlaying(true);
+  //     }
+  //   };
 
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, [isActive]);
+  //   document.addEventListener("visibilitychange", handleVisibilityChange);
+  //   return () => {
+  //     document.removeEventListener("visibilitychange", handleVisibilityChange);
+  //   };
+  // }, [isActive]);
 
   // Play or pause the audio based on the isActive prop
 
