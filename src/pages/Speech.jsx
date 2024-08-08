@@ -1,9 +1,12 @@
 import React, { useState, useRef } from "react";
+import { useSelector } from "react-redux";
 
 export default function Speech() {
   const [text, setText] = useState("");
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = useRef(null);
+
+  const currentUser = useSelector((state) => state.authUser.data);
 
   // Initialize Speech Recognition API
   const initializeRecognition = () => {
@@ -53,7 +56,7 @@ export default function Speech() {
   return (
     <section className="customContainer section flexCenter">
       <div className="flex flex-col gap-5 ">
-        <h1>Speech to Text and Text to Speech</h1>
+        <h1>{currentUser?.username} Speech to Text and Text to Speech</h1>
         <button className="btn" onClick={handleSpeechRecognition}>
           {isListening ? "Stop Listening" : "Start Listening"}
         </button>

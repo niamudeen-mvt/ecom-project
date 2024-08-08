@@ -1,17 +1,16 @@
-import React, { useState } from "react";
-import CustomInput from "../components/shared/CustomInput";
-import { Link, useNavigate } from "react-router-dom";
-import { sendNotification } from "../utils/notifications";
-
-import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useMutation } from "@tanstack/react-query";
+import CustomInput from "../components/shared/CustomInput";
 import {
   setItemsIntoLocalStorage,
   VALIDATE_USER_DETAIL,
 } from "../utils/helper";
-import { useDispatch } from "react-redux";
-import { updateAuthStatus } from "../store/features/authSlice";
-import { SERVER_URL } from "../constants";
+import { sendNotification } from "../utils/notifications";
+import { updateAuthUser } from "../store/features/authSlice";
+import { _config, SERVER_URL } from "../constants";
 
 export default function LoginPage() {
   const [userDetail, setUserDetail] = useState({
@@ -36,19 +35,25 @@ export default function LoginPage() {
     },
     onSuccess: (resp) => {
       if (resp?.status === 200) {
-        dispatch(updateAuthStatus(true));
-        setItemsIntoLocalStorage("userId", resp?.data?.userId, false);
+        dispatch(updateAuthUser({}));
+        setItemsIntoLocalStorage(_config.ID, resp?.data?.userId, false);
+        setItemsIntoLocalStorage(
+          _config.TOKEN,
+          resp?.data?.access_token,
+          false
+        );
         navigate("/dashboard");
       }
     },
     onError: (error) => {
       const errors = error?.response?.data?.errors;
-      const errorMessage = error?.response?.data?.message;
-      if (errorMessage) {
-        sendNotification("error", error?.response?.data?.message);
-      }
-      if (errors && errors.length > 0 && errors[0]?.msg) {
+
+      if (error?.response?.data?.code === "INVALID_CREDENTIALS") {
+        sendNotification("warning", "Please check your credentials");
+      } else if (errors && errors.length > 0 && errors[0]?.msg) {
         sendNotification("error", errors[0]?.msg);
+      } else if (error?.response?.data?.code === "ERROR") {
+        sendNotification("warning", "Something went wrong. Please try again");
       }
     },
   });

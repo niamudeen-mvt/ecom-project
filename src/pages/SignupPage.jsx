@@ -15,12 +15,14 @@ export default function SignupPage() {
     password: "",
   });
   const navigate = useNavigate();
+
   const handleOnChange = (e) => {
     setUserDetail({
       ...userDetail,
       [e.target.name]: e.target.value,
     });
   };
+
   const { mutate, isPending } = useMutation({
     mutationFn: async (userDetail) => {
       const resp = await axios.post(`${SERVER_URL}/auth/register`, userDetail);
@@ -33,13 +35,15 @@ export default function SignupPage() {
       }
     },
     onError: (error) => {
+      console.log("error: ", error);
       const errors = error?.response?.data?.errors;
-      const errorMessage = error?.response?.data?.message;
-      if (errorMessage) {
-        sendNotification("error", error?.response?.data?.message);
-      }
-      if (errors && errors.length > 0 && errors[0]?.msg) {
+
+      if (error?.response?.data?.code === "EMAIL_ALREADY_EXIST") {
+        sendNotification("warning", "Email already exists");
+      } else if (errors && errors.length > 0 && errors[0]?.msg) {
         sendNotification("error", errors[0]?.msg);
+      } else if (error?.response?.data?.code === "ERROR") {
+        sendNotification("warning", "Something went wrong. Please try again");
       }
     },
   });

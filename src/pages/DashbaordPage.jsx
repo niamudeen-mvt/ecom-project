@@ -5,6 +5,7 @@ import Audio4 from "../assets/audios/Free_Test_Data_1MB_MP3.mp3";
 import AudioPlayer from "../components/AudioPlayer";
 import testVideo1 from "../assets/videos/DEMO_VIDEO.mp4";
 import VideoPlayer from "../components/VideoPlayer";
+import { useSelector } from "react-redux";
 
 const AUDIO_FILES = [Audio1, Audio2, Audio4];
 const VIDEO_FILES = [
@@ -14,6 +15,8 @@ const VIDEO_FILES = [
 ];
 
 export default function DashboardPage() {
+  const currentUser = useSelector((state) => state.authUser.data);
+
   const [activeAudioId, setActiveAudioId] = useState(null);
   const [activeVideoId, setActiveVideoId] = useState(null);
   const handlePlay = (id) => {
@@ -26,6 +29,8 @@ export default function DashboardPage() {
 
   return (
     <>
+      <h1>Welcome {currentUser?.username}</h1>
+
       {AUDIO_FILES &&
         AUDIO_FILES.length > 0 &&
         AUDIO_FILES.map((audio, index) => {

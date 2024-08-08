@@ -1,16 +1,33 @@
-import { SidebarItem } from "./SideNavigation";
+import axios from "axios";
 import { Navigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { SidebarItem } from "./SideNavigation";
 import SideNavigation from "./SideNavigation";
-
-import { useAuth } from "../../store/features/authSlice";
 import UserMenu from "./UserMenu";
-import { PRIVATE_ROUTES } from "../../constants";
+import Loader from "../shared/Loader";
+import { useQuery } from "@tanstack/react-query";
+import { updateAuthUser, useAuth } from "../../store/features/authSlice";
+import { PRIVATE_ROUTES, SERVER_URL } from "../../constants";
 
 export default function AdminLayout({ children }) {
   const authUser = useAuth();
-
   const route = useLocation().pathname;
+  const dispatch = useDispatch();
 
+  const { isLoading } = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const response = await axios.get(`${SERVER_URL}/auth/user`);
+
+      if (response.data && response.data.code === "SUCCESS") {
+        dispatch(updateAuthUser(response.data.user));
+        return response.data.user;
+      }
+      return {};
+    },
+  });
+
+  if (isLoading) return <Loader />;
   if (!authUser?.isLoggedIn) return <Navigate to="/" />;
 
   return (

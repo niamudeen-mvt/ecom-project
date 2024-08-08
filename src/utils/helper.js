@@ -4,6 +4,9 @@
  * =================================================
  * */
 
+import axios from "axios";
+import { _config, SERVER_URL } from "../constants";
+
 export const setItemsIntoLocalStorage = (key, value, isJson = false) => {
   if (isJson) {
     localStorage.setItem(key, JSON.stringify(value));
@@ -20,6 +23,13 @@ export const getItemsFromLocalStorage = (key, isJson = false) => {
     } else {
       return item;
     }
+  }
+};
+
+export const removeItemsFromLocalStorage = (key) => {
+  const item = localStorage.getItem(key);
+  if (item) {
+    localStorage.removeItem(key);
   }
 };
 
@@ -63,4 +73,17 @@ export const VALIDATE_USER_DETAIL = (userData) => {
   }
 
   return { ERRORS, IS_EMPTY };
+};
+
+export const generateToken = async () => {
+  try {
+    const userId = getItemsFromLocalStorage(_config.ID);
+    const response = await axios.get(
+      `${SERVER_URL}/auth/refresh-token/${userId}`
+    );
+    return response?.data?.access_token || null;
+  } catch (error) {
+    console.error("Error generating token:", error);
+    return null;
+  }
 };

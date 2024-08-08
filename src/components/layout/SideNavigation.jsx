@@ -1,10 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { LuChevronFirst, LuChevronLast } from "react-icons/lu";
 import { Link, useNavigate } from "react-router-dom";
+
+import { LuChevronFirst, LuChevronLast } from "react-icons/lu";
 import { IoLogOutOutline } from "react-icons/io5";
+
 import useWindowSize from "../../hooks/useWindowSize";
+
 import { useDispatch } from "react-redux";
-import { updateAuthStatus } from "../../store/features/authSlice";
+import { userLogout } from "../../store/features/authSlice";
 
 const SidebarContext = createContext();
 
@@ -14,9 +17,9 @@ export default function SideNavigation({ children }) {
   const [expanded, setExpanded] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userLogout = () => {
-    dispatch(updateAuthStatus(false));
-    localStorage.removeItem("userId");
+
+  const handleLogout = () => {
+    dispatch(userLogout(false));
     navigate("/");
   };
 
@@ -51,7 +54,7 @@ export default function SideNavigation({ children }) {
 
           <div
             className="flex p-3 mx-2 mb-10  cursor-pointer rounded-lg hover:bg-black hover:text-white transition-all duration-300"
-            onClick={() => userLogout()}
+            onClick={handleLogout}
           >
             <div className={`flex items-center overflow-hidden `}>
               <IoLogOutOutline size={22} />

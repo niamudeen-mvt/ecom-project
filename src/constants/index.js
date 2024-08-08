@@ -33,6 +33,11 @@ import { RxDashboard } from "react-icons/rx";
 export const SERVER_URL = "https://ecom-sever.onrender.com/api/v1";
 // export const SERVER_URL = "http://localhost:7000/api/v1";
 
+export const _config = {
+  TOKEN: "access_token",
+  ID: "userId",
+};
+
 /**
  * =================================================
  * ROUTES : ALL THE ROUTES OF THE APP
@@ -103,6 +108,7 @@ export const ROUTES = [
     element: <Speech />,
     icon: <RxDashboard size={18} />,
     private: true,
+    hidden: false,
   },
   {
     id: "speech-lib",
@@ -111,23 +117,15 @@ export const ROUTES = [
     element: <SpeechLib />,
     icon: <RxDashboard size={18} />,
     private: true,
-  },
-  {
-    id: "404",
-    path: "*",
-    title: "Not found",
-    element: <NotFoundPage />,
-    hidden: true,
+    hidden: false,
   },
 ];
 
 export const PUBLIC_ROUTES =
-  ROUTES &&
   ROUTES.length > 0 &&
-  ROUTES.filter((route) => !route?.private && route.id !== "404");
+  ROUTES.filter((route) => !route?.private && !route.hidden);
 
 export const PRIVATE_ROUTES =
-  ROUTES &&
   ROUTES.length > 0 &&
   ROUTES.filter((route) => route?.private && !route.hidden).map((route) => {
     return {
