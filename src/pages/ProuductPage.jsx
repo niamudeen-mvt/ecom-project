@@ -9,40 +9,42 @@ import StaticButtons from "../components/StaticButton";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../store/features/cartSlice";
 import { sendNotification } from "../utils/notifications";
+import Loader from "../components/shared/Loader";
 
 export default function ProuductPage() {
   const { id: productId } = useParams();
-  const [product, setProduct] = useState({});
   const [activeImg, setActiveImg] = useState("");
 
   const cart = useSelector((state) => state.cart?.data);
   const dispatch = useDispatch();
 
   const getProductsById = async () => {
-    const { data } = await fetchProducts(`/products/${productId}`);
-
-    setProduct(data || {});
-    return true;
+    const response = await fetchProducts(`/products/${productId}`);
+    return response?.data || {};
   };
 
-  const { isLoading: fetchingProduct } = useQuery({
+  const { data: product, isLoading: fetchingProduct, isError } = useQuery({
     queryKey: ["products", productId],
     queryFn: getProductsById,
+    retry: false,
   });
+
 
   const handleCartProduct = (product) => {
     if (!product) return;
     if (cart && cart.find((item) => item.id === product.id)) {
-      sendNotification("warning", "Proudct already exists in the cart");
-      return;
+      return sendNotification("warning", "Proudct already exists in the cart");
     } else {
       dispatch(addToCart(product));
-      sendNotification("success", "Proudct added to the cart successfully");
+      return sendNotification("success", "Proudct added to the cart successfully");
     }
   };
+
+  if (fetchingProduct) return <Loader />
+
   return (
     <>
-      <section className={`min-h-[60rem] customContainer`}>
+      <section className={`min-h-[60rem] customContainer flexCenter`}>
         {product && (
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-80 lg:gap-20 w-full py-10">
             {fetchingProduct ? (
@@ -112,6 +114,12 @@ export default function ProuductPage() {
             )}
           </section>
         )}
+
+
+        {isError &&
+          <p className="!w-full mx-auto text-center text-2xl">Product not found ...</p>
+        }
+
       </section>
       <StaticButtons />
     </>

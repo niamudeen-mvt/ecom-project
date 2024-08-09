@@ -7,33 +7,29 @@ import SectionText from "../shared/SectionText";
 import UnavailableContent from "../shared/UnavailableContent";
 
 export default function ProductSection() {
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState("womens-bags");
 
   const getProductsByCategory = async () => {
-    const {
-      data: { products },
-    } = await fetchProducts(`/products/category/${activeCategory}`);
-    setProducts(products || []);
-    return true;
+    const response = await fetchProducts(`/products/category/${activeCategory}`);
+    return response?.data?.products || [];
   };
 
   const getCategories = async () => {
-    const { data } = await fetchProducts("/products/category-list");
-    setCategories(data || []);
-    return data;
+    const response = await fetchProducts("/products/category-list");
+    return response?.data
   };
 
-  const { isLoading: fetchingProducts } = useQuery({
+  const { data: products, isLoading: fetchingProducts } = useQuery({
     queryKey: ["products", activeCategory],
     queryFn: getProductsByCategory,
   });
 
-  useQuery({
+
+  const { data: categories } = useQuery({
     queryKey: ["products_categories"],
     queryFn: getCategories,
   });
+
 
   return (
     <>

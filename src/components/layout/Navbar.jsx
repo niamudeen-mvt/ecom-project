@@ -42,17 +42,15 @@ export default function Navbar() {
                 : "flex justify-between items-center gap-14 capitalize"
             }
           >
-            {ROUTES &&
-              ROUTES.length > 0 &&
-              ROUTES.filter((route) => !route.private && !route.hidden).map(
+            {ROUTES?.length > 0 &&
+              ROUTES?.filter((route) => !route.private && !route.hidden).map(
                 (route) => (
                   <li
                     key={route.id}
-                    className={` ${
-                      route.isButton
-                        ? "btn"
-                        : "hover:bg-gray-100 py-2 px-4 rounded-md transition-all duration-300 ease-in-out"
-                    }`}
+                    className={` ${route.isButton
+                      ? "btn"
+                      : "hover:bg-gray-100 py-2 px-4 rounded-md transition-all duration-300 ease-in-out"
+                      }`}
                     onClick={() => setIsNavOpen(false)}
                   >
                     <Link to={route.path}>{route.title}</Link>

@@ -14,9 +14,8 @@ export default function ProductCard({ product, isLoading }) {
     <>
       <div
         key={product.id}
-        className={`p-6 rounded-xl max-w-[30rem] ${
-          isLoading ? "min-h-[34rem]" : "min-h-[38rem]"
-        }  w-full mx-auto relative cursor-pointer`}
+        className={`p-6 rounded-xl max-w-[30rem] ${isLoading ? "min-h-[34rem]" : "min-h-[38rem]"
+          }  w-full mx-auto relative cursor-pointer`}
         onClick={() => goToProduct(product.id)}
       >
         {isLoading ? (

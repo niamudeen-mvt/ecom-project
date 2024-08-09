@@ -1,12 +1,14 @@
 import { useRef, useState } from "react";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
+import UnavailableContent from "./UnavailableContent";
 
 export default function CustomDropdown({
   categoryList,
   handleCategoryChange,
   activeCategory,
 }) {
+
   const [showDropDown, setShowDropDown] = useState(false);
   const dropDownRef = useRef(null);
 
@@ -45,6 +47,12 @@ export default function CustomDropdown({
                 {category}
               </li>
             ))}
+
+
+          {!categoryList &&
+            <li>
+              <UnavailableContent content="No categories found" />
+            </li>}
         </ul>
       )}
     </div>

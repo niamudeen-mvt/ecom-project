@@ -91,7 +91,6 @@ export const ROUTES = [
     path: "/product/:id",
     title: "Product",
     element: <ProuductPage />,
-    hidden: true,
   },
   {
     id: "dashboard",

@@ -83,7 +83,7 @@ export const generateToken = async () => {
     );
     return response?.data?.access_token || null;
   } catch (error) {
-    console.error("Error generating token:", error);
+    console.log("generateToken:", error);
     return null;
   }
 };
