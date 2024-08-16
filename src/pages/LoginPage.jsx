@@ -1,32 +1,23 @@
 import axios from "axios";
-import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@tanstack/react-query";
-import CustomInput from "../components/shared/CustomInput";
-import {
-  setItemsIntoLocalStorage,
-  VALIDATE_USER_DETAIL,
-} from "../utils/helper";
+import { setItemsIntoLocalStorage } from "../utils/helper";
 import { sendNotification } from "../utils/notifications";
 import { updateAuthUser } from "../store/features/authSlice";
-import { _config, SERVER_URL } from "../constants";
+import { _config, FORM_ERROR_MESSAGES, SERVER_URL } from "../constants";
+import { useForm } from "react-hook-form";
+import FormFieldError from "../components/shared/FormFieldError";
 
 export default function LoginPage() {
-  const [userDetail, setUserDetail] = useState({
-    email: "",
-    password: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const handleOnChange = (e) => {
-    setUserDetail({
-      ...userDetail,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (userDetail) => {
@@ -58,44 +49,59 @@ export default function LoginPage() {
     },
   });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const { ERRORS, IS_EMPTY } = VALIDATE_USER_DETAIL(userDetail);
-
-    if (IS_EMPTY) {
-      return sendNotification("warning", "Please fill all the fields");
-    }
-
-    if (ERRORS && ERRORS.length > 0) {
-      return sendNotification("error", ERRORS[0]);
-    }
-
-    mutate(userDetail);
+  const onSubmit = (data) => {
+    if (!data) return;
+    mutate(data);
   };
 
   return (
     <section className="customContainer min-h-[80vh] flexCenter">
       <form
         className="max-w-[36rem] min-h-[40rem] mx-auto text-lg p-14 rounded-xl space-y-10 shadow-lg"
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <h2 className="mb-14">Sign in</h2>
-        <CustomInput
-          label="email"
-          handleOnChange={handleOnChange}
-          value={userDetail.email}
-        />
-        <CustomInput
-          label="password"
-          type="password"
-          handleOnChange={handleOnChange}
-          value={userDetail.password}
-        />
+        <div className="space-y-4 text-xl">
+          <label className="capitalize">Email</label>
+          <input
+            autoComplete="off"
+            {...register("email", {
+              required: {
+                value: true,
+                message: FORM_ERROR_MESSAGES.REQUIRED,
+              },
+              pattern: {
+                value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                message: FORM_ERROR_MESSAGES.EMAIL.INVALID,
+              },
+            })}
+            className="border p-3 rounded-lg w-full"
+          />
+          {errors.email && <FormFieldError message={errors.email.message} />}
+        </div>
+        <div className="space-y-4 text-xl">
+          <label className="capitalize">Password</label>
+          <input
+            autoComplete="off"
+            {...register("password", {
+              required: {
+                value: true,
+                message: FORM_ERROR_MESSAGES.REQUIRED,
+              },
+              minLength: {
+                value: 3,
+                message: FORM_ERROR_MESSAGES.PASSWORD.MIN_LENGTH,
+              },
+            })}
+            className="border p-3 rounded-lg w-full"
+          />
+          {errors.password && (
+            <FormFieldError message={errors.password.message} />
+          )}
+        </div>
         <button type="submit" className="btn w-full" disabled={isPending}>
           {isPending ? "Loading..." : "Submit"}
         </button>
-
         <p className="text-center">
           Don't have an account ?
           <Link to="/signup" className="ml-2 text-black">

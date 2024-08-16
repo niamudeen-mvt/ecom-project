@@ -154,9 +154,22 @@ export const _routes = [
 
 /**
  * =================================================
- * ROUTES ENDS HERE
+ * FORMS CONSTANTS ENDS HERE
  * =================================================
  * */
+
+export const FORM_ERROR_MESSAGES = {
+  REQUIRED: "This field is required",
+  EMAIL: {
+    INVALID: "Please provide a valid email address",
+  },
+  PASSWORD: {
+    MIN_LENGTH: "Please provide a password with at least 3 characters",
+  },
+  PHONE: {
+    INVALID: "Please provide a valid phone number",
+  },
+};
 
 export const SLIDES_MENU = [
   {

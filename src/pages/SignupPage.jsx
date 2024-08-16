@@ -1,27 +1,19 @@
-import React, { useState } from "react";
-import CustomInput from "../components/shared/CustomInput";
 import { Link, useNavigate } from "react-router-dom";
 import { sendNotification } from "../utils/notifications";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { SERVER_URL } from "../constants";
-import { VALIDATE_USER_DETAIL } from "../utils/helper";
+import { FORM_ERROR_MESSAGES, SERVER_URL } from "../constants";
+import FormFieldError from "../components/shared/FormFieldError";
+import { useForm } from "react-hook-form";
 
 export default function SignupPage() {
-  const [userDetail, setUserDetail] = useState({
-    username: "",
-    email: "",
-    phone: "",
-    password: "",
-  });
-  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleOnChange = (e) => {
-    setUserDetail({
-      ...userDetail,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const navigate = useNavigate();
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (userDetail) => {
@@ -35,7 +27,6 @@ export default function SignupPage() {
       }
     },
     onError: (error) => {
-      console.log("error: ", error);
       const errors = error?.response?.data?.errors;
 
       if (error?.response?.data?.code === "EMAIL_ALREADY_EXIST") {
@@ -48,49 +39,98 @@ export default function SignupPage() {
     },
   });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const { ERRORS, IS_EMPTY } = VALIDATE_USER_DETAIL(userDetail);
-
-    if (IS_EMPTY) {
-      return sendNotification("warning", "Please fill all the fields");
-    }
-
-    if (ERRORS && ERRORS.length > 0) {
-      return sendNotification("error", ERRORS[0]);
-    }
-
-    mutate(userDetail);
+  const onSubmit = (data) => {
+    if (!data) return;
+    mutate(data);
   };
 
   return (
     <section className="customContainer min-h-[80vh] flexCenter">
       <form
         className="max-w-[36rem] min-h-[40rem] mx-auto text-lg p-14 rounded-xl space-y-10 shadow-lg"
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <h2 className="mb-14">Signup</h2>
-        <CustomInput
-          label="username"
-          handleOnChange={handleOnChange}
-          value={userDetail.username}
-        />
-        <CustomInput
-          label="email"
-          handleOnChange={handleOnChange}
-          value={userDetail.email}
-        />
-        <CustomInput
-          label="phone"
-          handleOnChange={handleOnChange}
-          value={userDetail.phone}
-        />
-        <CustomInput
-          label="password"
-          handleOnChange={handleOnChange}
-          value={userDetail.password}
-        />
+        <div className="space-y-4 text-xl">
+          <label className="capitalize">Username</label>
+          <input
+            autoComplete="off"
+            {...register("username", {
+              required: {
+                value: true,
+                message: FORM_ERROR_MESSAGES.REQUIRED,
+              },
+            })}
+            className="border p-3 rounded-lg w-full"
+          />
+          {errors.username && (
+            <FormFieldError message={errors.username.message} />
+          )}
+        </div>
+        <div className="space-y-4 text-xl">
+          <label className="capitalize">Email</label>
+          <input
+            autoComplete="off"
+            {...register("email", {
+              required: {
+                value: true,
+                message: FORM_ERROR_MESSAGES.REQUIRED,
+              },
+              pattern: {
+                value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                message: FORM_ERROR_MESSAGES.EMAIL.INVALID,
+              },
+            })}
+            className="border p-3 rounded-lg w-full"
+          />
+          {errors.email && <FormFieldError message={errors.email.message} />}
+        </div>
+        <div className="space-y-4 text-xl">
+          <label className="capitalize">Phone</label>
+          <input
+            autoComplete="off"
+            {...register("phone", {
+              required: {
+                value: true,
+                message: FORM_ERROR_MESSAGES.REQUIRED,
+              },
+              pattern: {
+                value: /^[6-9]\d{9}$/,
+                message: FORM_ERROR_MESSAGES.PHONE.INVALID,
+              },
+              minLength: {
+                value: 10,
+                message: FORM_ERROR_MESSAGES.PHONE.INVALID,
+              },
+              maxLength: {
+                value: 10,
+                message: FORM_ERROR_MESSAGES.PHONE.INVALID,
+              },
+            })}
+            className="border p-3 rounded-lg w-full"
+          />
+          {errors.phone && <FormFieldError message={errors.phone.message} />}
+        </div>
+        <div className="space-y-4 text-xl">
+          <label className="capitalize">Password</label>
+          <input
+            autoComplete="off"
+            {...register("password", {
+              required: {
+                value: true,
+                message: FORM_ERROR_MESSAGES.REQUIRED,
+              },
+              minLength: {
+                value: 3,
+                message: FORM_ERROR_MESSAGES.PASSWORD.MIN_LENGTH,
+              },
+            })}
+            className="border p-3 rounded-lg w-full"
+          />
+          {errors.password && (
+            <FormFieldError message={errors.password.message} />
+          )}
+        </div>
         <button type="submit" className="btn w-full" disabled={isPending}>
           {isPending ? "Loading..." : "Submit"}
         </button>
