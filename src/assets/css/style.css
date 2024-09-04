@@ -18,10 +18,6 @@ html {
   scroll-behavior: smooth;
 }
 
-a {
-  font-size: 1.2rem;
-}
-
 img {
   width: 100%;
   height: 100%;
@@ -48,6 +44,12 @@ img {
   animation-delay: 0.3s;
 }
 
+a,
+p,
+.btn {
+  font-size: 1.4rem;
+}
+
 @layer base {
   h1 {
     @apply text-[8rem];
@@ -57,7 +59,7 @@ img {
     @apply text-5xl capitalize;
   }
   p {
-    @apply text-lg max-w-xl w-full text-gray-400 m-0 p-0;
+    @apply max-w-xl w-full text-gray-400 m-0 p-0;
   }
 
   .btn {

@@ -43,20 +43,21 @@ export default function Navbar() {
             }
           >
             {ROUTES?.length > 0 &&
-              ROUTES?.filter((route) => !route.private && !route.hidden).map(
-                (route) => (
-                  <li
-                    key={route.id}
-                    className={` ${route.isButton
+              ROUTES?.filter(
+                (route) => !route.private && !route.hidden && !route.excludeNav
+              ).map((route) => (
+                <li
+                  key={route.id}
+                  className={` ${
+                    route.isButton
                       ? "btn"
                       : "hover:bg-gray-100 py-2 px-4 rounded-md transition-all duration-300 ease-in-out"
-                      }`}
-                    onClick={() => setIsNavOpen(false)}
-                  >
-                    <Link to={route.path}>{route.title}</Link>
-                  </li>
-                )
-              )}
+                  }`}
+                  onClick={() => setIsNavOpen(false)}
+                >
+                  <Link to={route.path}>{route.title}</Link>
+                </li>
+              ))}
           </ul>
         </nav>
         {isNavOpen ? (

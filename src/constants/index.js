@@ -91,6 +91,7 @@ export const ROUTES = [
     path: "/product/:id",
     title: "Product",
     element: <ProuductPage />,
+    excludeNav: true,
   },
   {
     id: "dashboard",
